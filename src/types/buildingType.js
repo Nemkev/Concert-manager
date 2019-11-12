@@ -2,7 +2,7 @@ import { gql } from "apollo-server-express";
 
 export default gql`
   type Query {
-    getBuildings [Building]
+    getBuildings: [Building]
     getbuilding(id: ID!): Building
   }
 

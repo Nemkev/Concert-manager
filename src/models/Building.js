@@ -4,7 +4,6 @@ const Schema = mongoose.Schema;
 const Buildings = new Schema({
   coordinates: {
     type: Schema.Types.Array,
-    required: true,
     default: null
   },
   city: {
@@ -13,7 +12,7 @@ const Buildings = new Schema({
   },
   concerts: {
     type: Schema.Types.Array,
-    required: true
+    default: null
   }
 });
 

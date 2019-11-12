@@ -16,7 +16,6 @@ const Coordinates = new Schema({
   },
   owner: {
     type: Schema.Types.String,
-    required: true,
     default: null
   },
   expire: {

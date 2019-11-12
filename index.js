@@ -1,20 +1,33 @@
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import mongoose from "mongoose";
+import { fileLoader, mergeTypes, mergeResolvers } from "merge-graphql-schemas";
+import db from "./src/models/db";
 
 const url = "mongodb://localhost:27017/Evgeny";
 const app = express();
-mongoose.connect(url);
+mongoose.connect(url, {
+  useCreateIndex: true,
+  useNewUrlParser: true,
+  reconnectTries: Number.MAX_VALUE
+});
 
 const apollo = new ApolloServer({
   typeDefs: `
-        type Query {
-            hello: String!
-        }
+  type Query {
+    getBuildings: [Building]
+  }
+
+  type Building {
+    id: ID!
+    coordinates: [String!]!
+    city: String!
+    concerts: [String]
+  }
     `,
   resolvers: {
     Query: {
-      hello: () => "world"
+      getBuildings: () => db.Building.find()
     }
   }
 });
@@ -29,6 +42,8 @@ app.get("/", (req, res) =>
   })
 );
 
-app.listen(8080, () =>
-  console.log("server was started on http://localhost:8080/graphql")
-);
+mongoose.connection.once("open", () => {
+  app.listen(8080, () =>
+    console.log("server was started on http://localhost:8080/graphql")
+  );
+});
