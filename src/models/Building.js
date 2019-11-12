@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const Buildings = new Schema({
   coordinates: {
-    type: Schema.Types.String,
+    type: Schema.Types.Array,
     required: true,
     default: null
   },
@@ -12,9 +12,10 @@ const Buildings = new Schema({
     required: true
   },
   concerts: {
-    type: Schema.Types.Number,
+    type: Schema.Types.Array,
     required: true
   }
 });
 
 export default mongoose.model("Buildings", Buildings);
+     
