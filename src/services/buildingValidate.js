@@ -1,11 +1,11 @@
 import joi from "joi";
 
 export default joi.object().keys({
-    city: joi
-    .string()
+    rooms: joi
+    .array()
     .required()
-    .min(3)
-    .max(30),
+    .min(1)
+    .max(5),
     concerts: joi.array().max(7).min(1),
-    /*coordinates*/
+    additionalId: joi.array()
 });
