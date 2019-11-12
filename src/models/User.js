@@ -14,9 +14,8 @@ const User = new Schema({
     type: Schema.Types.Number,
     required: true
   },
-  tickets: {
-    type: Schema.Types.String,
-    required: true
+  settings: {
+    type: Schema.Types.Array
   },
   role: {
     type: Schema.Types.String,

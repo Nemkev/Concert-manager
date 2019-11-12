@@ -2,13 +2,13 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const Buildings = new Schema({
-  coordinates: {
+  additionsId: {
+    type: Schema.Types.Array,
+    required: true
+  },
+  rooms: {
     type: Schema.Types.Array,
     default: null
-  },
-  city: {
-    type: Schema.Types.String,
-    required: true
   },
   concerts: {
     type: Schema.Types.Array,

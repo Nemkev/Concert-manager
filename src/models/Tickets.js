@@ -1,27 +1,31 @@
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
-const Coordinates = new Schema({
-  type: {
-    type: Schema.Types.String,
-    required: true
+const Tickets = new Schema({
+  userId: {
+    type: Schema.Types.Number,
+    required: true,
+    unique: true
   },
-  coordinates: {
-    type: Schema.Types.String,
-    required: true
+  buildingId: {
+    type: Schema.Types.Number,
+    required: true,
+    unique: true
   },
-  additional_service: {
+  concertId: {
+    type: Schema.Types.Number,
+    required: true,
+    unique: true
+  },
+  PlaceId: {
+    type: Schema.Types.Number,
+    required: true,
+    unique: true
+  },
+  additionalIds: {
     type: Schema.Types.Array,
-    required: true
-  },
-  owner: {
-    type: Schema.Types.String,
     default: null
-  },
-  expire: {
-    type: Schema.Types.Boolean,
-    required: true
   }
 });
 
-export default mongoose.model("Coordinates", Coordinates);
+export default mongoose.model("Tickets", Tickets);

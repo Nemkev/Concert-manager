@@ -1,23 +1,23 @@
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
-const additionalServices = new Schema({
+const Additional = new Schema({
   freeCocktails: {
     type: Schema.Types.Boolean,
-    required: true
+    default: null
   },
   afterpartyPass: {
     type: Schema.Types.Boolean,
-    required: true
+    default: null
   },
   freeSnacks: {
     type: Schema.Types.Boolean,
-    required: true
+    default: null
   },
   autographSession: {
     type: Schema.Types.Boolean,
-    required: true
+    default: null
   }
 });
 
-export default mongoose.model("Additional Services", additionalServices);
+export default mongoose.model("Additional", Additional);

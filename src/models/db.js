@@ -1,15 +1,15 @@
-import AdditionalServices from "./AdditionalServices";
+import Additionals from "./Additionals";
 import Building from "./Building";
 import Concert from "./Concert";
-//import Coordinates from "./Coordinates";
+import Room from "./Room";
 import Tickets from "./Tickets";
 import User from "./User";
 
 export default {
-  AdditionalServices,
+  Additionals,
   Building,
   Concert,
-  //Coordinates,
+  Room,
   Tickets,
   User
 };

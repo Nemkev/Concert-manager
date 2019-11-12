@@ -1,19 +1,22 @@
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
-const Coordinates = new Schema({
-  size: {
+const Room = new Schema({
+  schema: {
+    type: Schema.Types.Array,
+  },
+  id: {
     type: Schema.Types.Number,
     required: true
   },
-  name: {
+  type: {
     type: Schema.Types.String,
     required: true
   },
-  tickets: {
-    type: Schema.Types.Array,
+  price: {
+    type: Schema.Types.Number,
     required: true
   }
 });
 
-export default mongoose.model("Coordinates", Coordinates);
+export default mongoose.model("Room", Room);
