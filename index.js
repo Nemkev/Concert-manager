@@ -2,7 +2,7 @@ import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import mongoose from "mongoose";
 
-const url = 'mongodb://localhost:27017/Evgeny';
+const url = "mongodb://localhost:27017/Evgeny";
 const app = express();
 mongoose.connect(url);
 

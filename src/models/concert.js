@@ -1,27 +1,31 @@
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
-const User = new Schema({
-  firstName: {
+const Concert = new Schema({
+  title: {
     type: Schema.Types.String,
     required: true
   },
-  lastName: {
+  time: {
+    type: Schema.Types.Date,
+    required: true
+  },
+  name: {
     type: Schema.Types.String,
     required: true
   },
-  hashPassword: {
+  description: {
+    type: Schema.Types.String,
+    required: true
+  },
+  place: {
+    type: Schema.Types.String,
+    required: true
+  },
+  price: {
     type: Schema.Types.Number,
-    required: true
-  },
-  tickets: {
-    type: Schema.Types.String,
-    required: true
-  },
-  role: {
-    type: Schema.Types.String,
     required: true
   }
 });
 
-export default mongoose.model("User", User);
+export default mongoose.model("Concert", Concert);
