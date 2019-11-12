@@ -18,9 +18,9 @@ export default gql`
   }
 
   type Mutation {
-    createBuilding(city: String!):Boolean!
+    createBuilding(city: String!): String!
 
-    updateBuilding(id: ID!, city:String!):Boolean!
+    updateBuilding(id: ID!, city:String!): String!
 
-    delelteBuilding(idL ID!): Boolean!
+    delelteBuilding(idL ID!): String!
  }`;
