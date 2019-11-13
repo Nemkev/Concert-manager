@@ -2,12 +2,8 @@ import { gql } from "apollo-server-express";
 
 export default gql`
   type Query {
-    getBuildings: [Building]
-    getbuilding(id: ID!): Building
-  }
-
-  input BuildingInput {
-    id: ID!
+    getBuildings: [Building!]!
+    getBuilding(id: ID!): Building
   }
 
   type Building {
@@ -18,9 +14,9 @@ export default gql`
   }
 
   type Mutation {
-    createBuilding(city: String!): String!
+    createBuilding(city: String!, name: String!): Building!
 
     updateBuilding(id: ID!, city:String!): String!
 
-    delelteBuilding(idL ID!): String!
+    delelteBuilding(id: ID!): String!
  }`;

@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const Buildings = new Schema({
   additionsId: {
     type: Schema.Types.Array,
-    required: true
+    default: null
   },
   rooms: {
     type: Schema.Types.Array,
@@ -16,7 +16,7 @@ const Buildings = new Schema({
   },
   location: {
     type: Schema.Types.Array,
-    required: true
+    default: null
   },
   city: {
     type: Schema.Types.String,
