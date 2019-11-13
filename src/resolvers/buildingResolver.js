@@ -1,19 +1,17 @@
-import buildingValidate from "../services/buildingValidate";
 import db from "../models/db";
 
 export default {
   Query: {
     getBuildings: async () => {
-      return await db.Building.find({});
+      return await db.Building.find();
     },
     getBuilding: async (_, { id }) => {
       return await db.Building.findById(id);
     }
   },
-
   Mutation: {
-    createBuilding: async (_, arg) => {
-      const building = await new db.Building(Object.assign(arg)).save();
+    createBuilding: async (_, args) => {
+      const building = await new db.Building(args).save();
       return building;
     },
     updateBuilding: async (_, arg) => {
@@ -21,8 +19,8 @@ export default {
       return building
     },
     deleteBuilding: async (_, {id}) => {
-      const building = await db.Building.findByIdAndRemove(id);
-      return building
+      await db.Building.findByIdAndRemove(id);
+      return 'Deleted'
     }
   }
 }

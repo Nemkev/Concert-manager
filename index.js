@@ -4,18 +4,15 @@ import mongoose from "mongoose";
 import { fileLoader, mergeTypes, mergeResolvers } from "merge-graphql-schemas";
 import path from 'path';
 import db from "./src/models/db";
-import resolvers from './src/resolvers/buildingResolver';
-import typeDefs from './src/types/buildingType'
+import resolvers from './src/resolvers/concertResolver';
+import typeDefs from './src/types/concertType'
 
 const url = "mongodb://localhost:27017/Evgeny";
 const port = 8080;
+
 const app = express();
 
-mongoose.connect(url, {
-  useCreateIndex: true,
-  useNewUrlParser: true,
-  reconnectTries: Number.MAX_VALUE
-});
+mongoose.connect(url);
 
 const apollo = new ApolloServer({
   typeDefs,
@@ -24,7 +21,7 @@ const apollo = new ApolloServer({
 
 apollo.applyMiddleware({ app });
 
-app.get("/", (req, res) => res.redirect(`/graphql`));
+app.get("/", (_, res) => res.redirect(`/graphql`));
 
 mongoose.connection.once("open", () => {
   app.listen(port, () =>

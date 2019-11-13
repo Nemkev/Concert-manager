@@ -7,7 +7,7 @@ const Buildings = new Schema({
     default: null
   },
   rooms: {
-    type: Schema.Types.Array,
+    type: [Schema.Types.ObjectId],
     default: null
   },
   concerts: {
