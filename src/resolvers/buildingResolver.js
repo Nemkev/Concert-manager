@@ -6,8 +6,7 @@ export default {
       return await db.Buildings.find({});
     },
     getBuilding: async ({ id }, { db }) => {
-      const data = await db.Building.findById(id);
-      return data;
+      return await db.Building.findById(id);
     }
   },
 
