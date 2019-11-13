@@ -2,10 +2,8 @@ import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import mongoose from "mongoose";
 import { fileLoader, mergeTypes, mergeResolvers } from "merge-graphql-schemas";
-import path from 'path';
+import path from "path";
 import db from "./src/models/db";
-import resolvers from './src/resolvers/concertResolver';
-import typeDefs from './src/types/concertType'
 
 const url = "mongodb://localhost:27017/Evgeny";
 const port = 8080;
@@ -13,6 +11,10 @@ const port = 8080;
 const app = express();
 
 mongoose.connect(url);
+const typeDefs = mergeTypes(fileLoader(path.join(__dirname, "./src/types/")));
+const resolvers = mergeResolvers(
+  fileLoader(path.join(__dirname, "./src/resolvers/"))
+);
 
 const apollo = new ApolloServer({
   typeDefs,

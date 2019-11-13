@@ -15,7 +15,7 @@ export default gql`
   }
 
   type Mutation {
-    createConcert(city: String!, name: String!, price: Int!, date: String!): Concerts!
+    createConcert(name: String!, price: Int!, date: String!): Concerts!
     updateConcert(id: ID!, description: String, name: String!, price: Int!): Concerts!
     deleteConcert(id: ID!): String!
   }
