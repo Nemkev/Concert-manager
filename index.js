@@ -3,10 +3,8 @@ import { ApolloServer } from "apollo-server-express";
 import mongoose from "mongoose";
 import { fileLoader, mergeTypes, mergeResolvers } from "merge-graphql-schemas";
 import path from "path";
+import {port, url} from "./src/config/configs";
 import db from "./src/models/db";
-
-const url = "mongodb://localhost:27017/Evgeny";
-const port = 8080;
 
 const app = express();
 
