@@ -2,7 +2,7 @@
 import Building from "./Building";
 import Concert from "./Concert";
 // import Room from "./Room";
-// import Tickets from "./Tickets";
+import Ticket from "./Ticket";
 // import User from "./User";
 
 export default {
@@ -10,6 +10,6 @@ export default {
   Building,
   Concert,
   // Room,
-  // Tickets,
+  Ticket,
   // User
 };

@@ -7,7 +7,7 @@ const Additional = new Schema({
     required: true
   },
   price: {
-    type: Schema.Types.Int,
+    type: Schema.Types.Number,
     required: true
   }
 });

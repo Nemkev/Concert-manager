@@ -5,9 +5,7 @@ export default gql`
     getConcerts: [Concerts!]!
     getConcert(id: ID!): Concerts
   }
-
   scalar Date
-
   type Concerts {
     name: String!
     date: Date!
@@ -15,7 +13,6 @@ export default gql`
     price: Int!
     id: ID!
   }
-
   type Mutation {
     createConcert(name: String!, price: Int!, date: String!): Concerts!
     updateConcert(

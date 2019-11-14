@@ -1,22 +1,20 @@
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
-const Room = new Schema({
-  schema: {
-    type: Schema.Types.Array,
-  },
-  id: {
-    type: Schema.Types.Number,
-    required: true
-  },
-  type: {
-    type: Schema.Types.String,
-    required: true
-  },
+const Place = new Schema({
+  type: Schema.Types.String,
   price: {
     type: Schema.Types.Number,
     required: true
   }
+})
+
+const Row = new Schema({
+  row: [Place]
+})
+
+const Room = new Schema({
+  schema: [Row]
 });
 
 export default mongoose.model("Room", Room);

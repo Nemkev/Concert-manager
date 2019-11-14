@@ -14,8 +14,8 @@ export default {
       const Concert = await new db.Concert(args).save();
       return Concert;
     },
-    updateConcert: async (_, arg) => {
-      const Concert = await db.Concert.findByIdAndUpdate(arg.id, arg);
+    updateConcert: async (_, args) => {
+      const Concert = await db.Concert.findByIdAndUpdate(args.id, args);
       return Concert
     },
     deleteConcert: async (_, {id}) => {
