@@ -7,11 +7,11 @@ const Place = new Schema({
     type: Schema.Types.Number,
     required: true
   }
-})
+});
 
 const Row = new Schema({
   row: [Place]
-})
+});
 
 const Room = new Schema({
   schema: [Row]
