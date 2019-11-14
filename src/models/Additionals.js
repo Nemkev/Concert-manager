@@ -2,21 +2,13 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const Additional = new Schema({
-  freeCocktails: {
-    type: Schema.Types.Boolean,
-    default: null
+  name: {
+    type: Schema.Types.String,
+    required: true
   },
-  afterpartyPass: {
-    type: Schema.Types.Boolean,
-    default: null
-  },
-  freeSnacks: {
-    type: Schema.Types.Boolean,
-    default: null
-  },
-  autographSession: {
-    type: Schema.Types.Boolean,
-    default: null
+  price: {
+    type: Schema.Types.Int,
+    required: true
   }
 });
 
