@@ -11,7 +11,7 @@ const Buildings = new Schema({
     default: null
   },
   concerts: {
-    type: Schema.Types.Array,
+    type: [Schema.Types.ObjectId],
     default: null
   },
   location: {

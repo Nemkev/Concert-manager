@@ -3,10 +3,23 @@ import db from "../models/db";
 export default {
   Query: {
     getBuildings: async () => {
-      return await db.Building.find();
+      
+      const data = await db.Building.find();
+    
+      return data
     },
     getBuilding: async (_, { id }) => {
       return await db.Building.findById(id);
+    }
+  },
+  Building: {
+    concerts: async (parent) => {
+      
+        const concerts = await db.Concert.findById(parent.concerts).find();
+      
+        return concerts
+      
+   
     }
   },
   Mutation: {
@@ -15,7 +28,7 @@ export default {
       return building;
     },
     updateBuilding: async (_, arg) => {
-      const building = await db.Building.findByIdAndUpdate(arg.id, arg);
+      const building = await db.Building.findByIdAndUpdate(arg.id, arg, {new:true});
       return building
     },
     deleteBuilding: async (_, {id}) => {
