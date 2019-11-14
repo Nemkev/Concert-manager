@@ -3,7 +3,7 @@ import Building from "./Building";
 import Concert from "./Concert";
 // import Room from "./Room";
 import Ticket from "./Ticket";
-// import User from "./User";
+import User from "./User";
 
 export default {
   Additional,
@@ -11,5 +11,5 @@ export default {
   Concert,
   // Room,
   Ticket,
-  // User
+  User
 };

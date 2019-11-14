@@ -12,6 +12,7 @@ export default gql`
     concertId: ID
     placeId: ID
     additionalIds: ID
+    id:ID!
   }
 
   type Mutation {
