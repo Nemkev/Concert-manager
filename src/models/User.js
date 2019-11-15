@@ -11,7 +11,7 @@ const User = new Schema({
     required: true
   },
   hashPassword: {
-    type: Schema.Types.Number,
+    type: Schema.Types.String,
     required: true
   },
   settings: {
