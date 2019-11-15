@@ -19,7 +19,12 @@ export default gql`
 
   type Mutation {
     createBuilding(city: String!, name: String!, concerts: [ID!]): Building!
-    updateBuilding(id: ID!, city: String!, name: String!, concerts: [ID!]): Building!
+    updateBuilding(
+      id: ID!
+      city: String!
+      name: String!
+      concerts: [ID!]
+    ): Building!
     deleteBuilding(id: ID!): String!
   }
 `;

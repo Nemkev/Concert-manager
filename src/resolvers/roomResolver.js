@@ -16,11 +16,11 @@ export default {
     },
     updateRoom: async (_, args) => {
       const room = await db.Room.findByIdAndUpdate(args.id, args);
-      return room
+      return room;
     },
-    deleteRoom: async (_, {id}) => {
+    deleteRoom: async (_, { id }) => {
       await db.Room.findByIdAndRemove(id);
-      return 'Deleted'
+      return "Deleted";
     }
   }
-}
+};

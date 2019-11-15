@@ -16,11 +16,11 @@ export default {
     },
     updateConcert: async (_, args) => {
       const concert = await db.Concert.findByIdAndUpdate(args.id, args);
-      return concert
+      return concert;
     },
-    deleteConcert: async (_, {id}) => {
+    deleteConcert: async (_, { id }) => {
       await db.Concert.findByIdAndRemove(id);
-      return 'Deleted'
+      return "Deleted";
     }
   }
-}
+};
