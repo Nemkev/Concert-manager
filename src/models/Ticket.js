@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
-const Tickets = new Schema({
+const Ticket = new Schema({
   userId: {
     type: Schema.Types.Number,
     required: true,
@@ -23,9 +23,9 @@ const Tickets = new Schema({
     unique: true
   },
   additionalIds: {
-    type: Schema.Types.Array,
+    type: [Schema.Types.ObjectId],
     default: null
   }
 });
 
-export default mongoose.model("Tickets", Tickets);
+export default mongoose.model("Ticket", Ticket);
