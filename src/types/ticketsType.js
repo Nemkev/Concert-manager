@@ -23,5 +23,13 @@ export default gql`
       placeId: ID!
       additionalIds: ID
     ): Ticket!
+    updateTicket(
+      id: ID!
+      buildingId: ID
+      concertId: ID
+      placeId: ID
+      additionalIds: ID
+    ): Ticket!
+    deleteTicket(id: ID!): String!
   }
 `;

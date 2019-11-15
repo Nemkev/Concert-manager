@@ -14,11 +14,11 @@ export default {
       const ticket = await new db.Ticket(args).save();
       return ticket;
     },
-    updateConcert: async (_, args) => {
+    updateTicket: async (_, args) => {
       const ticket = await db.Ticket.findByIdAndUpdate(args.id, args);
       return ticket;
     },
-    deleteConcert: async (_, { id }) => {
+    deleteTicket: async (_, { id }) => {
       await db.Ticket.findByIdAndRemove(id);
       return "Deleted";
     }
