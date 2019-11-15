@@ -14,7 +14,7 @@ const Row = new Schema({
 });
 
 const Room = new Schema({
-  schema: [Row]
+  locationScheme: [Row]
 });
 
 export default mongoose.model("Room", Room);
