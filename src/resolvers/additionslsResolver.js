@@ -6,22 +6,21 @@ export default {
       return await db.Additional.find();
     },
     getConcert: async (_, { id }) => {
-        return await db.Additional.findById(id);
-      }
-    
+      return await db.Additional.findById(id);
+    }
   },
   Mutation: {
     createAddition: async (_, args) => {
-      const Concert = await new db.Additional(args).save();
-      return Concert;
+      const addition = await new db.Additional(args).save();
+      return addition;
     },
     updateAddition: async (_, args) => {
-      const Concert = await db.Additional.findByIdAndUpdate(args.id, args);
-      return Concert
+      const addition = await db.Additional.findByIdAndUpdate(args.id, args);
+      return addition;
     },
-    deleteAddition: async (_, {id}) => {
+    deleteAddition: async (_, { id }) => {
       await db.Additional.findByIdAndRemove(id);
-      return 'Deleted'
+      return "Deleted";
     }
-}
-}
+  }
+};

@@ -2,25 +2,25 @@ import db from "../models/db";
 
 export default {
   Query: {
-    getConcerts: async () => {
+    getUsers: async () => {
       return await db.User.find();
     },
-    getConcert: async (_, { id }) => {
+    getUser: async (_, { id }) => {
       return await db.User.findById(id);
     }
   },
   Mutation: {
-    createConcert: async (_, args) => {
-      const Concert = await new db.User(args).save();
-      return Concert;
+    createUser: async (_, args) => {
+      const user = await new db.User(args).save();
+      return user;
     },
-    updateConcert: async (_, args) => {
-      const Concert = await db.User.findByIdAndUpdate(args.id, args);
-      return Concert
+    updateUser: async (_, args) => {
+      const user = await db.User.findByIdAndUpdate(args.id, args);
+      return user;
     },
-    deleteConcert: async (_, {id}) => {
+    deleteUser: async (_, { id }) => {
       await db.User.findByIdAndRemove(id);
-      return 'Deleted'
+      return "Deleted";
     }
   }
-}
+};
