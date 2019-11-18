@@ -3,18 +3,17 @@ import joi from "joi";
 export default joi.object().keys({
   firstName: joi
     .string()
-    .alphanum()
-    .pattern(/^[0-9]+$/)
-    .min(1),
+    .min(2)
+    .max(20),
   lastName: joi
     .string()
-    .alphanum()
-    .pattern(/^[0-9]+$/)
-    .min(1),
+    .min(2)
+    .max(20),
   hashPassword: joi
     .string()
     .min(8)
     .max(16),
   settings: joi.array(),
-  role: joi.string()
+  role: joi.string(),
+  id: joi.string()
 });
