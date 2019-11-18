@@ -5,13 +5,11 @@ export default joi.object().keys({
     .string()
     .min(1)
     .max(50),
-  date: joi
-    .date()
-    .utc()
-    .format(["YYYY/MM/DD", "DD-MM-YYYY"]),
+  date: joi.date().greater("now"),
   description: joi
     .string()
     .min(15)
     .max(200),
-  price: joi.number()
+  price: joi.number(),
+  id: joi.string()
 });
