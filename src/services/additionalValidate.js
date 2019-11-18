@@ -5,5 +5,6 @@ export default joi.object().keys({
     .string()
     .max(50)
     .min(1),
-  price: joi.number()
+  price: joi.number(),
+  id: joi.number()
 });
