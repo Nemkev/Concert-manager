@@ -1,4 +1,6 @@
 import db from "../models/db";
+import ticketValidate from "../services/ticketValidate";
+import joi from "joi";
 
 export default {
   Query: {
@@ -11,12 +13,24 @@ export default {
   },
   Mutation: {
     createTicket: async (_, args) => {
-      const ticket = await new db.Ticket(args).save();
-      return ticket;
+      try {
+        await joi.validate(args, ticketValidate);
+        const ticket = await new db.Ticket(args).save();
+        return ticket;
+      } catch (error) {
+        console.log(error);
+        return ticket;
+      }
     },
     updateTicket: async (_, args) => {
-      const ticket = await db.Ticket.findByIdAndUpdate(args.id, args);
-      return ticket;
+      try {
+        await joi.validate(args, ticketValidate);
+        const ticket = await db.Ticket.findByIdAndUpdate(args.id, args);
+        return ticket;
+      } catch (error) {
+        console.log(error);
+        return ticket;
+      }
     },
     deleteTicket: async (_, { id }) => {
       await db.Ticket.findByIdAndRemove(id);

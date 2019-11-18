@@ -5,25 +5,25 @@ export default joi.object().keys({
     .string()
     .required()
     .min(8)
-    .max(12),
+    .max(28),
 
   buildingId: joi
     .string()
     .required()
     .min(8)
-    .max(12),
+    .max(28),
 
   concertId: joi
     .string()
     .required()
     .min(8)
-    .max(12),
+    .max(28),
 
   placeId: joi
     .string()
     .required()
     .min(8)
-    .max(12),
+    .max(28),
 
   additionalIds: joi.array().unique()
 });
