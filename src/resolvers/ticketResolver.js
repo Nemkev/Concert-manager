@@ -10,15 +10,15 @@ export default {
     }
   },
   Mutation: {
-    createConcert: async (_, args) => {
-      const Ticket = await new db.Ticket(args).save();
-      return Ticket;
+    createTicket: async (_, args) => {
+      const ticket = await new db.Ticket(args).save();
+      return ticket;
     },
-    updateConcert: async (_, args) => {
-      const Ticket = await db.Ticket.findByIdAndUpdate(args.id, args);
-      return Ticket;
+    updateTicket: async (_, args) => {
+      const ticket = await db.Ticket.findByIdAndUpdate(args.id, args);
+      return ticket;
     },
-    deleteConcert: async (_, { id }) => {
+    deleteTicket: async (_, { id }) => {
       await db.Ticket.findByIdAndRemove(id);
       return "Deleted";
     }

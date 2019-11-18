@@ -2,13 +2,13 @@ import { gql } from "apollo-server-express";
 
 export default gql`
   type Query {
-    getUsers: [Tickets!]!
-    getUser(id: ID!): Tickets
+    getUsers: [User!]!
+    getUser(id: ID!): User
   }
 
-  type Users {
+  type User {
     firstName: String!
-    secondName: String!
+    lastName: String!
     hashPassword: String!
     settings: String
     role: String!
@@ -18,18 +18,18 @@ export default gql`
   type Mutation {
     createUser(
       firstName: String!
-      secondName: String!
+      lastName: String!
       hashPassword: String!
       role: String!
       settings: String
-    ): Users!
+    ): User!
     updateUser(
       firstName: String!
-      secondName: String!
+      lastName: String!
       hashPassword: String!
       settings: String
       role: String!
-    ): Concerts!
+    ): User!
     deleteUser(id: ID!): String!
   }
 `;
