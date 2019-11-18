@@ -26,5 +26,6 @@ export default joi.object().keys({
     .max(28),
 
   additionalIds: joi.array().unique(),
+
   id: joi.string()
 });

@@ -20,6 +20,9 @@ const User = new Schema({
   role: {
     type: Schema.Types.String,
     required: true
+  },
+  email: {
+    type: Schema.Types.String
   }
 });
 
