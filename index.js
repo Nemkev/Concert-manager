@@ -4,6 +4,8 @@ import mongoose from "mongoose";
 import { fileLoader, mergeTypes, mergeResolvers } from "merge-graphql-schemas";
 import path from "path";
 import { port, url } from "./src/config/configs";
+import cookieParser from "cookie-parser";
+import { ACCESS_TOKEN_SECRET } from "./src/config/configs";
 
 const app = express();
 
@@ -12,6 +14,14 @@ const typeDefs = mergeTypes(fileLoader(path.join(__dirname, "./src/types/")));
 const resolvers = mergeResolvers(
   fileLoader(path.join(__dirname, "./src/resolvers/"))
 );
+
+const startServer = async () => {
+  const apollo = new ApolloServer({
+    typeDefs,
+    resolvers,
+    context: ({ req, res }) => ({ req, res })
+  });
+};
 
 const apollo = new ApolloServer({
   typeDefs,
