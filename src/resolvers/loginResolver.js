@@ -17,7 +17,7 @@ export default {
       await db.User.create({
         email,
         hashPassword: hashedPassword
-      }).save();
+      });
 
       return true;
     },
