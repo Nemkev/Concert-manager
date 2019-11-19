@@ -1,15 +1,15 @@
 import { gql } from "apollo-server-express";
 
 export const typeDefs = gql`
-  type JWT {
+  type User {
     id: ID!
-    email: String
+    email: String!
   }
   type Query {
-    auth: JWT
+    auth: User
   }
   type Mutation {
-    signup(email: String!, hashPassword: String!): String
-    login(email: String!, hashPassword: String!): String
+    register(email: String!, hashPassword: String!): Boolean!
+    login(email: String!, hashPassword: String!): User
   }
 `;

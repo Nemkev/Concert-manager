@@ -1,46 +1,50 @@
-import jsonwebtoken from "jsonwebtoken";
 import db from "../models/db";
 import bcrypt from "bcryptjs";
+import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from "../config/configs";
 
 export default {
   Query: {
-    auth: async (_, __, { user }) => {
-      if (!user) {
-        throw new Error("You are not authenticated!");
+    auth: (_, __, { req }) => {
+      if (!req.userId) {
+        return null;
       }
-      return await db.User.findById(user.id);
+      return db.User.findById(req.userId);
     }
   },
   Mutation: {
-    signup: async (_, { email, hashPassword }) => {
-      const user = await db.User.create({ email, hashPassword });
+    register: async (_, { email, hashPassword }) => {
+      const hashedPassword = await bcrypt.hash(hashPassword, 10);
       await db.User.create({
         email,
-        hashPassword: await bcrypt.hash(hashPassword, 10)
-      });
+        hashPassword: hashedPassword
+      }).save();
 
-      return jsonwebtoken.sign(
-        { id: user.id, email: user.email },
-        process.env.JWT_SECRET,
-        { expiresIn: "1y" }
-      );
+      return true;
     },
-    login: async (_, { email, password }) => {
+    login: async (_, { email, hashPassword }) => {
       const user = await db.User.findOne({ where: { email } });
       if (!user) {
-        throw new Error("No user with this email");
+        return null;
       }
 
-      const valid = await bcrypt.compare(password, user.password);
+      const valid = await bcrypt.compare(hashPassword, user.hashPassword);
       if (!valid) {
-        throw new Error("Incorrect password");
+        return null;
       }
 
-      return jsonwebtoken.sign(
-        { id: db.User.id, email: db.User.id },
-        process.env.JWT_SECRET,
-        { expiresIn: "1d" }
+      const refreshToken = sign(
+        { userId: user.id, count: user.count },
+        REFRESH_TOKEN_SECRET,
+        {
+          expiresIn: "7d"
+        }
       );
+      const accessToken = sign({ userId: user.id }, ACCESS_TOKEN_SECRET, {
+        expiresIn: "15min"
+      });
+
+      res.cookie("refresh-token", refreshToken);
+      res.cookie("access-token", accessToken);
 
       return user;
     }

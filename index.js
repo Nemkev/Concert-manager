@@ -4,7 +4,6 @@ import mongoose from "mongoose";
 import { fileLoader, mergeTypes, mergeResolvers } from "merge-graphql-schemas";
 import path from "path";
 import { port, url } from "./src/config/configs";
-import db from "./src/models/db";
 
 const app = express();
 
