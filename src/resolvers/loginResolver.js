@@ -22,7 +22,8 @@ export default {
 
       return true;
     },
-    login: async (_, { email, hashPassword }, { res }) => {
+    login: async (_, { email, hashPassword }, { req, res }) => {
+      // console.log(req.cookie);
       const user = await db.User.findOne({ email });
       if (!user) {
         console.log(email);
@@ -35,19 +36,21 @@ export default {
         return null;
       }
 
-      // const refreshToken = sign(
-      //   { userId: user.id, count: user.count },
-      //   REFRESH_TOKEN_SECRET,
-      //   {
-      //     expiresIn: "7d"
-      //   }
-      // );
-      // const accessToken = sign({ userId: user.id }, ACCESS_TOKEN_SECRET, {
-      //   expiresIn: "15min"
-      // });
+      const refreshToken = sign(
+        { userId: user.id, count: user.count },
+        REFRESH_TOKEN_SECRET,
+        {
+          expiresIn: "7d"
+        }
+      );
+      const accessToken = sign({ userId: user.id }, ACCESS_TOKEN_SECRET, {
+        expiresIn: "15min"
+      });
 
-      // res.cookie("refresh-token", refreshToken);
-      // res.cookie("access-token", accessToken);
+      console.log(res.cookie, 1);
+      console.log(refreshToken);
+      res.cookie("refresh-token", refreshToken);
+      res.cookie("access-token", accessToken);
 
       return user;
     }

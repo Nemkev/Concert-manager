@@ -6,10 +6,10 @@ import path from "path";
 import { port, url } from "./src/config/configs";
 import cookieParser from "cookie-parser";
 import { ACCESS_TOKEN_SECRET } from "./src/config/configs";
-
-const app = express();
+import { verify } from "jsonwebtoken";
 
 mongoose.connect(url);
+
 const typeDefs = mergeTypes(fileLoader(path.join(__dirname, "./src/types/")));
 const resolvers = mergeResolvers(
   fileLoader(path.join(__dirname, "./src/resolvers/"))
@@ -21,19 +21,27 @@ const startServer = async () => {
     resolvers,
     context: ({ req, res }) => ({ req, res })
   });
+
+  const app = express();
+
+  app.use(cookieParser());
+
+  app.use((req, _, next) => {
+    const accessToken = req.cookies["access-token"];
+    try {
+      const data = verify(accessToken, ACCESS_TOKEN_SECRET);
+      req.userId = data.userId;
+    } catch (error) {}
+    next();
+  });
+
+  apollo.applyMiddleware({ app });
+  app.get("/", (_, res) => res.redirect(`/graphql`));
+  mongoose.connection.once("open", () => {
+    app.listen(port, () =>
+      console.log("server was started on http://localhost:8080/graphql")
+    );
+  });
 };
 
-const apollo = new ApolloServer({
-  typeDefs,
-  resolvers
-});
-
-apollo.applyMiddleware({ app });
-
-app.get("/", (_, res) => res.redirect(`/graphql`));
-
-mongoose.connection.once("open", () => {
-  app.listen(port, () =>
-    console.log("server was started on http://localhost:8080/graphql")
-  );
-});
+startServer();
