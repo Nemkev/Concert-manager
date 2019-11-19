@@ -1,51 +1,46 @@
-import { sign } from "jsonwebtoken";
+import jsonwebtoken from "jsonwebtoken";
 import db from "../models/db";
 import bcrypt from "bcryptjs";
 
 export default {
   Query: {
-    auth: (_, __, { req }) => {
-      if (!req.userId) {
-        return null;
+    auth: async (_, __, { user }) => {
+      if (!user) {
+        throw new Error("You are not authenticated!");
       }
-
-      return User.findOne(req.userId);
+      return await db.User.findById(user.id);
     }
   },
   Mutation: {
-    register: async (_, { email, password }) => {
-      const hashedPassword = await bcrypt.hash(password, 10);
+    signup: async (_, { email, hashPassword }) => {
+      const user = await db.User.create({ email, hashPassword });
       await db.User.create({
         email,
-        hashPassword: hashedPassword
-      }).save();
+        hashPassword: await bcrypt.hash(hashPassword, 10)
+      });
 
-      return true;
+      return jsonwebtoken.sign(
+        { id: user.id, email: user.email },
+        process.env.JWT_SECRET,
+        { expiresIn: "1y" }
+      );
     },
-    login: async (_, { email, password }, { res }) => {
+    login: async (_, { email, password }) => {
       const user = await db.User.findOne({ where: { email } });
       if (!user) {
-        return null;
+        throw new Error("No user with this email");
       }
 
       const valid = await bcrypt.compare(password, user.password);
       if (!valid) {
-        return null;
+        throw new Error("Incorrect password");
       }
 
-      const refreshToken = sign(
-        { userId: user.id, count: user.count },
-        REFRESH_TOKEN_SECRET,
-        {
-          expiresIn: "7d"
-        }
+      return jsonwebtoken.sign(
+        { id: db.User.id, email: db.User.id },
+        process.env.JWT_SECRET,
+        { expiresIn: "1d" }
       );
-      const accessToken = sign({ userId: user.id }, ACCESS_TOKEN_SECRET, {
-        expiresIn: "15min"
-      });
-
-      res.cookie("refresh-token", refreshToken);
-      res.cookie("access-token", accessToken);
 
       return user;
     }

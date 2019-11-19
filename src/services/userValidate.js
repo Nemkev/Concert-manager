@@ -15,5 +15,6 @@ export default joi.object().keys({
     .max(16),
   settings: joi.array(),
   role: joi.string(),
-  id: joi.string()
+  id: joi.string(),
+  email: joi.string()
 });
