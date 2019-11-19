@@ -35,6 +35,10 @@ const startServer = async () => {
     next();
   });
 
+  // app.use((req, _, next) => {
+  //   next();
+  // });
+
   apollo.applyMiddleware({ app });
   app.get("/", (_, res) => res.redirect(`/graphql`));
   mongoose.connection.once("open", () => {

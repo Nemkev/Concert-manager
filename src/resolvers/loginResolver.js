@@ -22,8 +22,7 @@ export default {
 
       return true;
     },
-    login: async (_, { email, hashPassword }, { req, res }) => {
-      // console.log(req.cookie);
+    login: async (_, { email, hashPassword }, { res }) => {
       const user = await db.User.findOne({ email });
       if (!user) {
         console.log(email);
@@ -47,8 +46,6 @@ export default {
         expiresIn: "15min"
       });
 
-      console.log(res.cookie, 1);
-      console.log(refreshToken);
       res.cookie("refresh-token", refreshToken);
       res.cookie("access-token", accessToken);
 
