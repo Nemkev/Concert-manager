@@ -19,7 +19,6 @@ export default {
         return ticket;
       } catch (error) {
         console.log(error);
-        return ticket;
       }
     },
     updateTicket: async (_, args) => {
@@ -29,7 +28,6 @@ export default {
         return ticket;
       } catch (error) {
         console.log(error);
-        return ticket;
       }
     },
     deleteTicket: async (_, { id }) => {
