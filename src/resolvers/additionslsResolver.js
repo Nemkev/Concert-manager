@@ -21,7 +21,6 @@ export default {
         return addition;
       } catch (error) {
         console.log(error);
-        return addition;
       }
     },
     updateAddition: async (_, args, { req }) => {
@@ -32,7 +31,6 @@ export default {
         return addition;
       } catch (error) {
         console.log(error);
-        return addition;
       }
     },
     deleteAddition: async (_, { id }, { req }) => {

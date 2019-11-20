@@ -6,9 +6,11 @@ import { isAuth } from "../helpers/isAuth";
 export default {
   Query: {
     getTicket: async () => {
+      isAuth(req);
       return await db.Ticket.find();
     },
     getTickets: async (_, { id }) => {
+      isAuth(req);
       return await db.Ticket.findById(id);
     }
   },

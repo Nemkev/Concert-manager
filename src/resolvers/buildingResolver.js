@@ -9,8 +9,7 @@ export default {
       const data = await db.Building.find();
       return data;
     },
-    getBuilding: async (_, { id }, { req }) => {
-      isAuth(req);
+    getBuilding: async (_, { id }) => {
       return await db.Building.findById(id);
     }
   },
