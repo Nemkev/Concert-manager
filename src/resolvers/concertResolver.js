@@ -1,7 +1,7 @@
 import db from "../models/db";
 import concertValidate from "../services/concertValidate";
 import joi from "joi";
-import isAuth from "../helpers/isAuth";
+import { isAuth } from "../helpers/isAuth";
 
 export default {
   Query: {

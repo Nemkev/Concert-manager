@@ -1,6 +1,7 @@
 import db from "../models/db";
 import additionValidate from "../services/additionalValidate";
 import joi from "joi";
+import { isAuth } from "../helpers/isAuth";
 
 export default {
   Query: {
@@ -12,8 +13,9 @@ export default {
     }
   },
   Mutation: {
-    createAddition: async (_, args) => {
+    createAddition: async (_, args, { req }) => {
       try {
+        isAuth(req);
         await joi.validate(args, additionValidate);
         const addition = await new db.Additional(args).save();
         return addition;
@@ -22,8 +24,9 @@ export default {
         return addition;
       }
     },
-    updateAddition: async (_, args) => {
+    updateAddition: async (_, args, { req }) => {
       try {
+        isAuth(req);
         await joi.validate(args, additionValidate);
         const addition = await db.Additional.findByIdAndUpdate(args.id, args);
         return addition;
@@ -32,7 +35,8 @@ export default {
         return addition;
       }
     },
-    deleteAddition: async (_, { id }) => {
+    deleteAddition: async (_, { id }, { req }) => {
+      isAuth(req);
       await db.Additional.findByIdAndRemove(id);
       return "Deleted";
     }
