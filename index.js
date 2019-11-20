@@ -3,28 +3,49 @@ import { ApolloServer } from "apollo-server-express";
 import mongoose from "mongoose";
 import { fileLoader, mergeTypes, mergeResolvers } from "merge-graphql-schemas";
 import path from "path";
-import {port, url} from "./src/config/configs";
-import db from "./src/models/db";
-
-const app = express();
+import { port, url } from "./src/config/configs";
+import cookieParser from "cookie-parser";
+import { ACCESS_TOKEN_SECRET } from "./src/config/configs";
+import { verify } from "jsonwebtoken";
 
 mongoose.connect(url);
+
 const typeDefs = mergeTypes(fileLoader(path.join(__dirname, "./src/types/")));
 const resolvers = mergeResolvers(
   fileLoader(path.join(__dirname, "./src/resolvers/"))
 );
 
-const apollo = new ApolloServer({
-  typeDefs,
-  resolvers
-});
+const startServer = async () => {
+  const apollo = new ApolloServer({
+    typeDefs,
+    resolvers,
+    context: ({ req, res }) => ({ req, res })
+  });
 
-apollo.applyMiddleware({ app });
+  const app = express();
 
-app.get("/", (_, res) => res.redirect(`/graphql`));
+  app.use(cookieParser());
 
-mongoose.connection.once("open", () => {
-  app.listen(port, () =>
-    console.log("server was started on http://localhost:8080/graphql")
-  );
-});
+  app.use((req, _, next) => {
+    const accessToken = req.cookies["access-token"];
+    try {
+      const data = verify(accessToken, ACCESS_TOKEN_SECRET);
+      req.userId = data.userId;
+    } catch (error) {}
+    next();
+  });
+
+  // app.use((req, _, next) => {
+  //   next();
+  // });
+
+  apollo.applyMiddleware({ app });
+  app.get("/", (_, res) => res.redirect(`/graphql`));
+  mongoose.connection.once("open", () => {
+    app.listen(port, () =>
+      console.log("server was started on http://localhost:8080/graphql")
+    );
+  });
+};
+
+startServer();

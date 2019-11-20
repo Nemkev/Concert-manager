@@ -1,4 +1,6 @@
 import db from "../models/db";
+import concertValidate from "../services/concertValidate";
+import joi from "joi";
 
 export default {
   Query: {
@@ -11,12 +13,24 @@ export default {
   },
   Mutation: {
     createConcert: async (_, args) => {
-      const concert = await new db.Concert(args).save();
-      return concert;
+      try {
+        await joi.validate(args, concertValidate);
+        const concert = await new db.Concert(args).save();
+        return concert;
+      } catch (error) {
+        console.log(error);
+        return concert;
+      }
     },
     updateConcert: async (_, args) => {
-      const concert = await db.Concert.findByIdAndUpdate(args.id, args);
-      return concert;
+      try {
+        await joi.validate(args, concertValidate);
+        const concert = await db.Concert.findByIdAndUpdate(args.id, args);
+        return concert;
+      } catch (error) {
+        console.log(error);
+        return concert;
+      }
     },
     deleteConcert: async (_, { id }) => {
       await db.Concert.findByIdAndRemove(id);
