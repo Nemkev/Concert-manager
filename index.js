@@ -35,12 +35,10 @@ const startServer = async () => {
     next();
   });
 
-  // app.use((req, _, next) => {
-  //   next();
-  // });
+  app.get("/", (_, res) => res.redirect(`/graphql`));
 
   apollo.applyMiddleware({ app });
-  app.get("/", (_, res) => res.redirect(`/graphql`));
+
   mongoose.connection.once("open", () => {
     app.listen(port, () =>
       console.log("server was started on http://localhost:8080/graphql")
