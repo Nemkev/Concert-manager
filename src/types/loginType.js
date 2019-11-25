@@ -3,7 +3,9 @@ import { gql } from "apollo-server-express";
 export default gql`
   type User {
     id: ID!
-    email: String
+    email: String!
+    accessToken: String!
+    refreshToken: String!
   }
   type Query {
     auth: User

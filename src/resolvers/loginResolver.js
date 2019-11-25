@@ -23,7 +23,8 @@ export default {
       return true;
     },
     login: async (_, { email, hashPassword }, { res }) => {
-      const user = await db.User.findOne({ email });
+      const user = await db.User.findOne({ email }).lean();
+
       if (!user) {
         console.log(email);
         return null;
@@ -46,10 +47,14 @@ export default {
         expiresIn: "15min"
       });
 
-      res.cookie("refresh-token", refreshToken);
-      res.cookie("access-token", accessToken);
+      res.cookie("refresh-token", refreshToken, { httpOnly: true });
+      res.cookie("access-token", accessToken, { httpOnly: true });
 
-      return user;
+      return Object.assign(user, {
+        id: user._id,
+        accessToken: accessToken,
+        refreshToken: refreshToken
+      });
     }
   }
 };
