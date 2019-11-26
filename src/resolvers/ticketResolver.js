@@ -9,7 +9,7 @@ export default {
       isAuth(req);
       return await db.Ticket.find();
     },
-    getTickets: async (_, { id }) => {
+    getTickets: async (_, { id }, { req }) => {
       isAuth(req);
       return await db.Ticket.findById(id);
     }

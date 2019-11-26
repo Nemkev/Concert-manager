@@ -6,6 +6,7 @@ import { sign } from "jsonwebtoken";
 export default {
   Query: {
     auth: (_, __, { req }) => {
+      console.log(req);
       if (!req.userId) {
         return null;
       }
@@ -13,11 +14,13 @@ export default {
     }
   },
   Mutation: {
-    register: async (_, { email, hashPassword }) => {
+    register: async (_, { email, hashPassword, firstName, lastName }) => {
       const hashedPassword = await bcrypt.hash(hashPassword, 10);
       await db.User.create({
         email,
-        hashPassword: hashedPassword
+        hashPassword: hashedPassword,
+        firstName,
+        lastName
       });
 
       return true;
@@ -37,13 +40,13 @@ export default {
       }
 
       const refreshToken = sign(
-        { userId: user.id, count: user.count },
+        { userId: user._id, count: user.count },
         REFRESH_TOKEN_SECRET,
         {
           expiresIn: "7d"
         }
       );
-      const accessToken = sign({ userId: user.id }, ACCESS_TOKEN_SECRET, {
+      const accessToken = sign({ userId: user._id }, ACCESS_TOKEN_SECRET, {
         expiresIn: "15min"
       });
 
