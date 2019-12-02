@@ -5,7 +5,7 @@ import { isAuth } from "../helpers/isAuth";
 
 export default {
   Query: {
-    getTicket: async () => {
+    getTicket: async (_, __, { req }) => {
       isAuth(req);
       return await db.Ticket.find();
     },

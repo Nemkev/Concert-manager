@@ -8,7 +8,7 @@ export default {
     getAdditions: async () => {
       return await db.Additional.find();
     },
-    getConcert: async (_, { id }) => {
+    getAddition: async (_, { id }) => {
       return await db.Additional.findById(id);
     }
   },
