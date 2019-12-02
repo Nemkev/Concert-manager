@@ -9,7 +9,9 @@ export default {
       return await db.Concert.findById(id);
     },
     getConcerts: async (_, { name }) => {
-      return await db.Concert.find({ name: new RegExp(`${name}`) });
+      return await db.Concert.find({ name: new RegExp(`${name}`) }, null, {
+        limit: 10
+      });
     }
   },
   Mutation: {
