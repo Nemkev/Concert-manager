@@ -5,11 +5,11 @@ import { isAuth } from "../helpers/isAuth";
 
 export default {
   Query: {
-    getConcerts: async () => {
-      return await db.Concert.find();
-    },
     getConcert: async (_, { id }) => {
       return await db.Concert.findById(id);
+    },
+    getConcerts: async (_, { name }) => {
+      return await db.Concert.find({ name: new RegExp(`${name}`) });
     }
   },
   Mutation: {

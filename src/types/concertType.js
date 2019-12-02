@@ -2,8 +2,8 @@ import { gql } from "apollo-server-express";
 
 export default gql`
   type Query {
-    getConcerts: [Concerts!]!
     getConcert(id: ID!): Concerts
+    getConcerts(name: String!): [Concert]
   }
   scalar Date
   type Concerts {
@@ -12,6 +12,10 @@ export default gql`
     description: String
     price: Int!
     id: ID!
+  }
+  type Concert {
+    name: String!
+    date: Date!
   }
   type Mutation {
     createConcert(name: String!, price: Int!, date: String!): Concerts!
