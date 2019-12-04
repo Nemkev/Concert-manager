@@ -2,8 +2,8 @@ import { gql } from "apollo-server-express";
 
 export default gql`
   type Query {
-    getConcerts: [Concerts!]!
     getConcert(id: ID!): Concerts
+    getConcerts(name: String!, limit: Int, skip: Int): [Concerts]
   }
   scalar Date
   type Concerts {

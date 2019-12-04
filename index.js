@@ -7,6 +7,7 @@ import { port, url } from "./src/config/configs";
 import cookieParser from "cookie-parser";
 import { ACCESS_TOKEN_SECRET } from "./src/config/configs";
 import { verify } from "jsonwebtoken";
+import cors from "cors";
 
 mongoose.connect(url);
 
@@ -25,7 +26,6 @@ const startServer = async () => {
   const app = express();
 
   app.use(cookieParser());
-
   app.use((req, _, next) => {
     const accessToken = req.cookies["access-token"];
     try {
@@ -37,7 +37,13 @@ const startServer = async () => {
 
   app.get("/", (_, res) => res.redirect(`/graphql`));
 
-  apollo.applyMiddleware({ app });
+  apollo.applyMiddleware({
+    app,
+    cors: {
+      credentials: true,
+      origin: "http://localhost:3000"
+    }
+  });
 
   mongoose.connection.once("open", () => {
     app.listen(port, () =>
