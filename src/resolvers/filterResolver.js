@@ -5,19 +5,20 @@ export default {
     getFilter: async (_, { name, city, date, limit, skip }) => {
       const data = await db.Building.find(
         {
-          $or: [
+          $and: [
             {
               name: new RegExp(`${name}`)
             }
           ],
-          $and: [
+          $or: [
             {
               city: new RegExp(`${city}`)
             }
           ]
-          //   $or:[
+
+          //   $or: [
           //     {
-          //       date: new RegExp(`${date}`)
+          //       date: { $elemMatch: { $in: [new RegExp(`${date}`)] } }
           //     }
           //   ]
         },
@@ -25,7 +26,8 @@ export default {
         { limit, skip }
       ).populate({ path: "concerts", model: db.Concert });
 
-      console.log(data[0].concerts);
+      //   data.find(date === data.concerts);
+      console.log(data.find(() => date === data.concerts));
 
       return data;
     }
