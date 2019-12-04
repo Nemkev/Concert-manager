@@ -31,11 +31,11 @@ export default {
         return error;
       }
     },
-    updateBuilding: async (_, arg, { req }) => {
+    updateBuilding: async (_, args, { req }) => {
       try {
         isAuth(req);
         await joi.validate(args, buildingValidation);
-        const building = await db.Building.findByIdAndUpdate(arg.id, arg, {
+        const building = await db.Building.findByIdAndUpdate(args.id, args, {
           new: true
         });
         return building;
