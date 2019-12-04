@@ -10,8 +10,8 @@ export default {
     },
     getConcerts: async (_, { name, limit, skip }) => {
       return await db.Concert.find({ name: new RegExp(`${name}`) }, null, {
-        limit: limit,
-        skip: skip
+        limit,
+        skip
       });
     }
   },
