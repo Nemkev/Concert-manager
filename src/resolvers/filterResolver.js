@@ -20,7 +20,8 @@ export default {
           }
 
           return item;
-        });
+        })
+        .filter(item => item.concerts.length > 0);
     }
   }
 };
