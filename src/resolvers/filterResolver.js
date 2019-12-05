@@ -9,7 +9,17 @@ export default {
 
       return data
         .filter(item => (city ? item.city.includes(city) : item))
-        .filter(item => (name ? item.name.includes(name) : item))
+        .map(item => {
+          if (name) {
+            const concerts = item.concerts
+              .map(item => Object.assign({}, item, { id: item._id }))
+              .filter(item => ("" + item.name).includes(name));
+
+            return Object.assign({}, item, { concerts, id: item._id });
+          }
+
+          return item;
+        })
         .map(item => {
           if (date) {
             const concerts = item.concerts
