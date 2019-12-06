@@ -18,7 +18,7 @@ export default {
             return Object.assign({}, item, { concerts, id: item._id });
           }
 
-          return item;
+          return Object.assign({}, item, { concerts, id: item._id });
         })
         .map(item => {
           if (date) {
