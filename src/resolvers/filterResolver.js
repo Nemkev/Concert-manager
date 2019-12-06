@@ -10,28 +10,20 @@ export default {
       return data
         .filter(item => (city ? item.city.includes(city) : item))
         .map(item => {
-          if (name) {
-            const concerts = item.concerts
-              .map(item => Object.assign({}, item, { id: item._id }))
-              .filter(item => item.name.includes(name));
-
-            return Object.assign({}, item, { concerts, id: item._id });
-          }
+          const concerts = item.concerts
+            .map(item => Object.assign({}, item, { id: item._id }))
+            .filter(item => item.name.includes(name));
 
           return Object.assign({}, item, { concerts, id: item._id });
         })
         .map(item => {
-          if (date) {
-            const concerts = item.concerts
-              .map(item => Object.assign({}, item, { id: item._id }))
-              .filter(item => {
-                return item.date.toISOString().includes(date);
-              });
+          const concerts = item.concerts
+            .map(item => Object.assign({}, item, { id: item._id }))
+            .filter(item => {
+              return item.date.toISOString().includes(date);
+            });
 
-            return Object.assign({}, item, { concerts, id: item._id });
-          }
-
-          return Object.assign({}, item, { id: item._id });
+          return Object.assign({}, item, { concerts, id: item._id });
         })
         .filter(item => item.concerts.length > 0);
     }
