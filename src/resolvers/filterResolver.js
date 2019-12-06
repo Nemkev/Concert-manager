@@ -13,7 +13,7 @@ export default {
           if (name) {
             const concerts = item.concerts
               .map(item => Object.assign({}, item, { id: item._id }))
-              .filter(item => ("" + item.name).includes(name));
+              .filter(item => item.name.includes(name));
 
             return Object.assign({}, item, { concerts, id: item._id });
           }
@@ -24,12 +24,14 @@ export default {
           if (date) {
             const concerts = item.concerts
               .map(item => Object.assign({}, item, { id: item._id }))
-              .filter(item => ("" + item.date).includes(date));
+              .filter(item => {
+                return item.date.toISOString().includes(date);
+              });
 
             return Object.assign({}, item, { concerts, id: item._id });
           }
 
-          return item;
+          return Object.assign({}, item, { id: item._id });
         })
         .filter(item => item.concerts.length > 0);
     }
