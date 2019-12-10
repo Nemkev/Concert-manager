@@ -17,6 +17,9 @@ export default {
       for (let x = 0; x < typesArray.length; x++) {
         for (let y = 0; y < typesArray[x].length; y++) {
           if (typesArray[x][y] === 1) {
+            // createTicket: async (_, args) => {
+
+            // }
             typesArray[x][y] = { price: 10, id: uuidv4() };
           }
         }

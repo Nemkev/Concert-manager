@@ -3,28 +3,19 @@ const Schema = mongoose.Schema;
 
 const Ticket = new Schema({
   userId: {
-    type: Schema.Types.ObjectId,
-    required: true,
-    unique: true
+    type: Schema.Types.String
   },
   buildingId: {
-    type: Schema.Types.String,
-    required: true,
-    unique: true
+    type: Schema.Types.String
   },
   concertId: {
-    type: Schema.Types.ObjectId,
-    required: true,
-    unique: true
+    type: Schema.Types.String
   },
   placeId: {
-    type: Schema.Types.ObjectId,
-    required: true,
-    unique: true
+    type: Schema.Types.String
   },
   additionalIds: {
-    type: [Schema.Types.ObjectId],
-    default: null
+    type: [Schema.Types.String]
   }
 });
 

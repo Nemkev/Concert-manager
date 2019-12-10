@@ -19,6 +19,8 @@ export default {
       try {
         isAuth(req);
         await joi.validate(args, ticketValidate);
+        console.log(args);
+
         const ticket = await new db.Ticket(args).save();
         return ticket;
       } catch (error) {

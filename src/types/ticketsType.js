@@ -7,22 +7,22 @@ export default gql`
   }
 
   type Ticket {
-    userId: ID
-    buildingId: ID
-    concertId: ID
-    placeId: ID
-    additionalIds: ID
+    userId: String
+    buildingId: String
+    concertId: String
+    placeId: String
+    additionalIds: String
     id: ID!
   }
 
   type Mutation {
     createTicket(
-      userId: ID!
-      buildingId: ID!
-      concertId: ID!
-      placeId: ID!
-      additionalIds: ID
-    ): Ticket!
+      userId: String!
+      buildingId: String!
+      concertId: String!
+      placeId: String!
+      additionalIds: [String]
+    ): Ticket
     updateTicket(
       id: ID!
       buildingId: ID
