@@ -7,13 +7,19 @@ export default gql`
   }
 
   type Room {
-    locationScheme: [String!]
+    locationScheme: [Place!]
+    id: ID!
+  }
+
+  type Place {
+    price: Int!
+    type: Int!
     id: ID!
   }
 
   type Mutation {
-    createRoom(locationScheme: [String!]!): Room!
-    updateRoom(id: ID!, locationScheme: [String]): Room!
+    createRoom(locationScheme: [[Int]]!): Room!
+    updateRoom(id: ID!, placeScheme: [String]): Room!
     deleteRoom(id: ID!): String!
   }
 `;
