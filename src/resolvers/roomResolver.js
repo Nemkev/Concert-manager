@@ -17,10 +17,14 @@ export default {
       for (let x = 0; x < typesArray.length; x++) {
         for (let y = 0; y < typesArray[x].length; y++) {
           if (typesArray[x][y] === 1) {
-            // createTicket: async (_, args) => {
-
-            // }
-            typesArray[x][y] = { price: 10, id: uuidv4() };
+            let id = uuidv4().replace(/-/g, "");
+            const ticket = await new db.Ticket(
+              { userId: uuidv4().replace(/-/g, "") },
+              { concertId: uuidv4().replace(/-/g, "") },
+              { buildingId: uuidv4().replace(/-/g, "") },
+              { placeId: id }
+            ).save();
+            typesArray[x][y] = { price: 10, id: id };
           }
         }
       }
