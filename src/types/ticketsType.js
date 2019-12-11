@@ -21,8 +21,8 @@ export default gql`
       buildingId: ID!
       concertId: ID!
       placeId: ID!
-      additionalIds: ID
-    ): Ticket!
+      additionalIds: [ID]
+    ): Ticket
     updateTicket(
       id: ID!
       buildingId: ID

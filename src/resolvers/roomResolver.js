@@ -1,4 +1,5 @@
 import db from "../models/db";
+import uuidv4 from "uuid";
 
 export default {
   Query: {
@@ -11,22 +12,33 @@ export default {
   },
   Mutation: {
     createRoom: async (_, args) => {
+      let typesArray = args.locationScheme;
+
+      for (let x = 0; x < typesArray.length; x++) {
+        for (let y = 0; y < typesArray[x].length; y++) {
+          if (typesArray[x][y] === 1) {
+            let id = uuidv4()
+              .replace(/-/g, "")
+              .substr(-24);
+            const ticket = await new db.Ticket({
+              userId: uuidv4()
+                .replace(/-/g, "")
+                .substr(-24),
+              concertId: args.concertId,
+              buildingId: args.buildingId,
+              placeId: id
+            }).save();
+            typesArray[x][y] = { price: 10, id };
+          }
+        }
+      }
       const room = await new db.Room({
         rooms: [
           {
-            placeSchema: [
-              [
-                { type: 0, price: 10, id: 121231313 },
-                { type: 0, price: 10, id: 121231313 },
-                { type: 0, price: 10, id: 121231313 },
-                { type: 0, price: 10, id: 121231313 }
-              ]
-            ]
+            placeSchema: typesArray
           }
         ]
       }).save();
-      console.log(room, 11111111111111112);
-
       return room;
     },
     updateRoom: async (_, args) => {

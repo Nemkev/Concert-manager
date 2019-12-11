@@ -13,7 +13,7 @@ const Ticket = new Schema({
     unique: true
   },
   concertId: {
-    type: Schema.Types.ObjectId,
+    type: Schema.Types.String,
     required: true,
     unique: true
   },
@@ -23,8 +23,7 @@ const Ticket = new Schema({
     unique: true
   },
   additionalIds: {
-    type: [Schema.Types.ObjectId],
-    default: null
+    type: [Schema.Types.String]
   }
 });
 
