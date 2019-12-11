@@ -11,7 +11,7 @@ export default {
     }
   },
   Mutation: {
-    createRoom: async (_, args) => {
+    createRoom: async (_, { concertId, buildingId }) => {
       let typesArray = args.locationScheme;
 
       for (let x = 0; x < typesArray.length; x++) {
@@ -22,8 +22,8 @@ export default {
               .substr(-24);
             const ticket = await new db.Ticket({
               userId: null,
-              concertId: args.concertId,
-              buildingId: args.buildingId,
+              concertId: concertId,
+              buildingId: buildingId,
               placeId: id
             }).save();
             typesArray[x][y] = { price: 10, id };
