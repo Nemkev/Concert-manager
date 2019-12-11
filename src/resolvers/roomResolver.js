@@ -17,13 +17,11 @@ export default {
       for (let x = 0; x < typesArray.length; x++) {
         for (let y = 0; y < typesArray[x].length; y++) {
           if (typesArray[x][y] === 1) {
-            let id = uuidv4()
+            const id = uuidv4()
               .replace(/-/g, "")
               .substr(-24);
             const ticket = await new db.Ticket({
-              userId: uuidv4()
-                .replace(/-/g, "")
-                .substr(-24),
+              userId: null,
               concertId: args.concertId,
               buildingId: args.buildingId,
               placeId: id
