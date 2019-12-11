@@ -20,7 +20,7 @@ export default {
             const id = uuidv4()
               .replace(/-/g, "")
               .substr(-24);
-            const ticket = await new db.Ticket({
+            await new db.Ticket({
               userId: null,
               concertId: concertId,
               buildingId: buildingId,
