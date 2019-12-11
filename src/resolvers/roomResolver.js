@@ -20,27 +20,14 @@ export default {
             let id = uuidv4()
               .replace(/-/g, "")
               .substr(-24);
-            const ticket = await new db.Ticket(
-              // {
-              //   _id: uuidv4()
-              //     .replace(/-/g, "")
-              //     .substr(-24)
-              // },
-
-              {
-                userId: uuidv4()
-                  .replace(/-/g, "")
-                  .substr(-24),
-                concertId: uuidv4()
-                  .replace(/-/g, "")
-                  .substr(-24),
-                buildingId: uuidv4()
-                  .replace(/-/g, "")
-                  .substr(-24),
-                placeId: id
-              }
-            ).save();
-            console.log(ticket);
+            const ticket = await new db.Ticket({
+              userId: uuidv4()
+                .replace(/-/g, "")
+                .substr(-24),
+              concertId: args.concertId,
+              buildingId: args.buildingId,
+              placeId: id
+            }).save();
             typesArray[x][y] = { price: 10, id };
           }
         }

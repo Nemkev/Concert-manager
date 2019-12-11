@@ -18,8 +18,13 @@ export default gql`
   }
 
   type Mutation {
-    createRoom(locationScheme: [[Int]]!): Room!
-    updateRoom(id: ID!, placeScheme: [String]): Room!
+    createRoom(locationScheme: [[Int]]!, buildingId: ID!, concertId: ID!): Room!
+    updateRoom(
+      id: ID!
+      locationScheme: [[Int]]
+      buildingId: ID
+      concertId: ID
+    ): Room!
     deleteRoom(id: ID!): String!
   }
 `;

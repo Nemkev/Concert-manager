@@ -8,12 +8,12 @@ const Ticket = new Schema({
     unique: true
   },
   buildingId: {
-    type: Schema.Types.ObjectId,
+    type: Schema.Types.String,
     required: true,
     unique: true
   },
   concertId: {
-    type: Schema.Types.ObjectId,
+    type: Schema.Types.String,
     required: true,
     unique: true
   },
