@@ -17,18 +17,34 @@ export default {
       for (let x = 0; x < typesArray.length; x++) {
         for (let y = 0; y < typesArray[x].length; y++) {
           if (typesArray[x][y] === 1) {
-            let id = uuidv4().replace(/-/g, "");
+            let id = uuidv4()
+              .replace(/-/g, "")
+              .substr(-24);
             const ticket = await new db.Ticket(
-              { userId: uuidv4().replace(/-/g, "") },
-              { concertId: uuidv4().replace(/-/g, "") },
-              { buildingId: uuidv4().replace(/-/g, "") },
-              { placeId: id }
+              // {
+              //   _id: uuidv4()
+              //     .replace(/-/g, "")
+              //     .substr(-24)
+              // },
+
+              {
+                userId: uuidv4()
+                  .replace(/-/g, "")
+                  .substr(-24),
+                concertId: uuidv4()
+                  .replace(/-/g, "")
+                  .substr(-24),
+                buildingId: uuidv4()
+                  .replace(/-/g, "")
+                  .substr(-24),
+                placeId: id
+              }
             ).save();
-            typesArray[x][y] = { price: 10, id: id };
+            console.log(ticket);
+            typesArray[x][y] = { price: 10, id };
           }
         }
       }
-
       const room = await new db.Room({
         rooms: [
           {
