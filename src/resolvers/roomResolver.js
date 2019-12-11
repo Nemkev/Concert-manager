@@ -11,8 +11,8 @@ export default {
     }
   },
   Mutation: {
-    createRoom: async (_, { concertId, buildingId }) => {
-      let typesArray = args.locationScheme;
+    createRoom: async (_, { concertId, buildingId, locationScheme }) => {
+      let typesArray = locationScheme;
 
       for (let x = 0; x < typesArray.length; x++) {
         for (let y = 0; y < typesArray[x].length; y++) {
