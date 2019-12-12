@@ -11,21 +11,19 @@ export default {
     }
   },
   Mutation: {
-    createRoom: async (_, args) => {
-      let typesArray = args.locationScheme;
+    createRoom: async (_, { concertId, buildingId, locationScheme }) => {
+      let typesArray = locationScheme;
 
       for (let x = 0; x < typesArray.length; x++) {
         for (let y = 0; y < typesArray[x].length; y++) {
           if (typesArray[x][y] === 1) {
-            let id = uuidv4()
+            const id = uuidv4()
               .replace(/-/g, "")
               .substr(-24);
-            const ticket = await new db.Ticket({
-              userId: uuidv4()
-                .replace(/-/g, "")
-                .substr(-24),
-              concertId: args.concertId,
-              buildingId: args.buildingId,
+            await new db.Ticket({
+              userId: null,
+              concertId: concertId,
+              buildingId: buildingId,
               placeId: id
             }).save();
             typesArray[x][y] = { price: 10, id };
