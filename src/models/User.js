@@ -3,13 +3,16 @@ const Schema = mongoose.Schema;
 
 const User = new Schema({
   firstName: {
-    type: Schema.Types.String
+    type: Schema.Types.String,
+    required: true
   },
   lastName: {
-    type: Schema.Types.String
+    type: Schema.Types.String,
+    required: true
   },
   hashPassword: {
-    type: Schema.Types.String
+    type: Schema.Types.String,
+    required: true
   },
   settings: {
     type: Schema.Types.Array
@@ -18,7 +21,9 @@ const User = new Schema({
     type: Schema.Types.String
   },
   email: {
-    type: Schema.Types.String
+    type: Schema.Types.String,
+    required: true,
+    unique: true
   }
 });
 
