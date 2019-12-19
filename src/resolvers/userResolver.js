@@ -23,7 +23,6 @@ export default {
         return user;
       } catch (error) {
         console.log(error);
-        return user;
       }
     },
     updateUser: async (_, args, { req }) => {
@@ -34,7 +33,6 @@ export default {
         return user;
       } catch (error) {
         console.log(error);
-        return user;
       }
     },
     deleteUser: async (_, { id }, { req }) => {

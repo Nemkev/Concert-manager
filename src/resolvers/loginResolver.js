@@ -2,6 +2,8 @@ import db from "../models/db";
 import bcrypt from "bcryptjs";
 import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from "../config/configs";
 import { sign } from "jsonwebtoken";
+import userValidate from "../services/userValidate";
+import joi from "joi";
 
 export default {
   Query: {
@@ -15,6 +17,10 @@ export default {
   Mutation: {
     register: async (_, { email, hashPassword, firstName, lastName }) => {
       try {
+        await joi.validate(
+          { email, hashPassword, firstName, lastName },
+          userValidate
+        );
         const hashedPassword = await bcrypt.hash(hashPassword, 10);
         await db.User.create({
           email,
@@ -24,6 +30,7 @@ export default {
         });
       } catch (error) {
         console.log(error);
+        return false;
       }
 
       return true;
