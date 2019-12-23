@@ -14,13 +14,13 @@ export default gql`
     id: ID!
   }
   type Mutation {
-    createConcert(name: String!, price: Int!, date: String!): Concerts!
-    updateConcert(
-      id: ID!
-      description: String
+    createConcert(
       name: String!
       price: Int!
+      date: String!
+      description: String
     ): Concerts!
+    updateConcert(description: String, name: String!, price: Int!): Concerts!
     deleteConcert(id: ID!): String!
   }
 `;
