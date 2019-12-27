@@ -18,7 +18,8 @@ const User = new Schema({
     type: Schema.Types.Array
   },
   role: {
-    type: Schema.Types.String
+    type: Schema.Types.String,
+    default: "user"
   },
   email: {
     type: Schema.Types.String,

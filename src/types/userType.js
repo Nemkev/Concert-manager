@@ -2,7 +2,7 @@ import { gql } from "apollo-server-express";
 
 export default gql`
   type Query {
-    getUsers: [User!]!
+    getUsers(email: String!, limit: Int, skip: Int): [User]
     getUser(id: ID!): User
   }
 
@@ -18,17 +18,19 @@ export default gql`
   type Mutation {
     createUser(
       firstName: String!
+      email: String!
       lastName: String!
       hashPassword: String!
       role: String!
       settings: String
     ): User!
     updateUser(
-      firstName: String!
-      lastName: String!
-      hashPassword: String!
+      id: ID!
+      firstName: String
+      lastName: String
+      hashPassword: String
       settings: String
-      role: String!
+      role: String
     ): User!
     deleteUser(id: ID!): String!
   }

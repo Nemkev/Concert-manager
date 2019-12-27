@@ -2,7 +2,7 @@ import { gql } from "apollo-server-express";
 
 export default gql`
   type Query {
-    getBuildings: [Building!]!
+    getBuildings(name: String!, limit: Int, skip: Int): [Building!]!
     getBuilding(id: ID!): Building
   }
 
@@ -21,8 +21,8 @@ export default gql`
     createBuilding(city: String!, name: String!, concerts: [ID!]): Building!
     updateBuilding(
       id: ID!
-      city: String!
-      name: String!
+      city: String
+      name: String
       concerts: [ID!]
     ): Building!
     deleteBuilding(id: ID!): String!

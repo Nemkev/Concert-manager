@@ -5,9 +5,11 @@ import { isAuth } from "../helpers/isAuth";
 
 export default {
   Query: {
-    getBuildings: async () => {
-      const data = await db.Building.find();
-      return data;
+    getBuildings: async (_, { name, limit, skip }) => {
+      return await db.Building.find({ name: new RegExp(`${name}`) }, null, {
+        limit,
+        skip
+      });
     },
     getBuilding: async (_, { id }) => {
       return await db.Building.findById(id);

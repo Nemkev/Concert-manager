@@ -5,10 +5,7 @@ export default joi.object().keys({
     .array()
     .min(1)
     .max(5),
-  concerts: joi
-    .array()
-    .max(7)
-    .min(1),
+  concerts: joi.array().max(7),
   additionalId: joi.array(),
   city: joi
     .string()
