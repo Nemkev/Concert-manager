@@ -9,7 +9,7 @@ import { ACCESS_TOKEN_SECRET } from "./src/config/configs";
 import { verify } from "jsonwebtoken";
 import cors from "cors";
 
-mongoose.connect(url);
+mongoose.connect(url, { useFindAndModify: false });
 
 const typeDefs = mergeTypes(fileLoader(path.join(__dirname, "./src/types/")));
 const resolvers = mergeResolvers(

@@ -5,9 +5,12 @@ import { isAuth } from "../helpers/isAuth";
 
 export default {
   Query: {
-    getUsers: async (_, __, { req }) => {
+    getUsers: async (_, { email, limit, skip }, { req }) => {
       isAuth(req);
-      return await db.User.find();
+      return await db.User.find({ email: new RegExp(`${email}`) }, null, {
+        limit,
+        skip
+      });
     },
     getUser: async (_, { id }, { req }) => {
       isAuth(req);
@@ -29,7 +32,9 @@ export default {
       try {
         isAuth(req);
         await joi.validate(args, userValidate);
-        const user = await db.User.findByIdAndUpdate(args.id, args);
+        const user = await db.User.findByIdAndUpdate(args.id, args, {
+          new: true
+        });
         return user;
       } catch (error) {
         console.log(error);

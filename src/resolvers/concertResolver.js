@@ -30,7 +30,9 @@ export default {
       try {
         isAuth(req);
         await joi.validate(args, concertValidate);
-        const concert = await db.Concert.findByIdAndUpdate(args.id, args);
+        const concert = await db.Concert.findByIdAndUpdate(args.id, args, {
+          new: true
+        });
         return concert;
       } catch (error) {
         console.log(error);

@@ -20,7 +20,13 @@ export default gql`
       date: String!
       description: String
     ): Concerts!
-    updateConcert(description: String, name: String!, price: Int!): Concerts!
+    updateConcert(
+      id: ID!
+      description: String
+      name: String
+      price: Int
+      date: String
+    ): Concerts!
     deleteConcert(id: ID!): String!
   }
 `;
