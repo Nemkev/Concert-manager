@@ -2,7 +2,7 @@ import { gql } from "apollo-server-express";
 
 export default gql`
   type Query {
-    getAdditions: [Additions!]!
+    getAdditions(name: String!, limit: Int, skip: Int): [Additions]
     getAddition(id: ID!): Additions
   }
 
@@ -13,7 +13,7 @@ export default gql`
   }
 
   type Mutation {
-    createAddition(id: ID!, name: String!, price: Int!): Additions!
+    createAddition(name: String!, price: Int!): Additions!
     updateAddition(id: ID!, name: String, price: Int): Additions!
     deleteAddition(id: ID!): String!
   }

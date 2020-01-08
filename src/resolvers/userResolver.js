@@ -1,5 +1,6 @@
 import db from "../models/db";
 import userValidate from "../services/userValidate";
+import bcrypt from "bcryptjs";
 import joi from "joi";
 import { isAuth } from "../helpers/isAuth";
 
@@ -18,11 +19,25 @@ export default {
     }
   },
   Mutation: {
-    createUser: async (_, args, { req }) => {
+    createUser: async (
+      _,
+      { email, hashPassword, firstName, lastName, role },
+      { req }
+    ) => {
       try {
         isAuth(req);
-        await joi.validate(args, userValidate);
-        const user = await new db.User(args).save();
+        await joi.validate(
+          { email, hashPassword, firstName, lastName },
+          userValidate
+        );
+        const hashedPassword = await bcrypt.hash(hashPassword, 10);
+        const user = await db.User.create({
+          email,
+          hashPassword: hashedPassword,
+          role,
+          lastName,
+          firstName
+        });
         return user;
       } catch (error) {
         console.log(error);

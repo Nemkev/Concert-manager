@@ -5,8 +5,11 @@ import { isAuth } from "../helpers/isAuth";
 
 export default {
   Query: {
-    getAdditions: async () => {
-      return await db.Additional.find();
+    getAdditions: async (_, { name, limit, skip }) => {
+      return await db.Additional.find({ name: new RegExp(`${name}`) }, null, {
+        limit,
+        skip
+      });
     },
     getAddition: async (_, { id }) => {
       return await db.Additional.findById(id);

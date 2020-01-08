@@ -14,16 +14,22 @@ export default gql`
     description: String
     location: [String!]
     rooms: [String!]
-    additionsId: [String!]
+    additionsId: [ID!]
   }
 
   type Mutation {
-    createBuilding(city: String!, name: String!, concerts: [ID!]): Building!
+    createBuilding(
+      city: String!
+      name: String!
+      concerts: [ID]
+      additionsId: [ID]
+    ): Building!
     updateBuilding(
       id: ID!
       city: String
       name: String
       concerts: [ID!]
+      additionsId: [ID]
     ): Building!
     deleteBuilding(id: ID!): String!
   }

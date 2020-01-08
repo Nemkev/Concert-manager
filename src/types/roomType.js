@@ -18,7 +18,13 @@ export default gql`
   }
 
   type Mutation {
-    createRoom(locationScheme: [[Int]]!, buildingId: ID!, concertId: ID!): Room!
+    createRoom(
+      locationScheme: [[Int]]!
+      buildingId: ID!
+      concertId: ID!
+      commonPrice: Int!
+      vipPrice: Int!
+    ): Room!
     updateRoom(
       id: ID!
       locationScheme: [[Int]]
