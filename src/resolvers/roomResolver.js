@@ -13,7 +13,7 @@ export default {
   Mutation: {
     createRoom: async (
       _,
-      { concertId, buildingId, locationScheme, commonPrice, vipPrice }
+      { concertId, buildingId, locationScheme, commonPrice, vipPrice, name }
     ) => {
       let typesArray = locationScheme;
 
@@ -49,7 +49,8 @@ export default {
           {
             placeSchema: typesArray
           }
-        ]
+        ],
+        name
       }).save();
       return room;
     },

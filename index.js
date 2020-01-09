@@ -25,7 +25,7 @@ const startServer = async () => {
   });
 
   const app = express();
-
+  app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
   app.use(cookieParser());
   app.use((req, _, next) => {
     const accessToken = req.cookies["access-token"];
@@ -36,9 +36,8 @@ const startServer = async () => {
     next();
   });
 
-  app.get("/", (_, res) => res.redirect(`/graphql`));
-
   app.get("/about", getDescription);
+  app.get("/", (_, res) => res.redirect(`/graphql`));
   app.get("/place", getPlaceSchema);
 
   apollo.applyMiddleware({

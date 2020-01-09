@@ -11,5 +11,6 @@ export default joi.object().keys({
     .min(15)
     .max(200),
   price: joi.number(),
-  id: joi.string()
+  id: joi.string(),
+  roomId: joi.string()
 });

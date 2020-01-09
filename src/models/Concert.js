@@ -17,6 +17,9 @@ const Concert = new Schema({
   price: {
     type: Schema.Types.Number,
     required: true
+  },
+  roomId: {
+    type: Schema.Types.ObjectId
   }
 });
 

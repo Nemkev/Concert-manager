@@ -30,6 +30,7 @@ export default gql`
       name: String
       concerts: [ID!]
       additionsId: [ID]
+      rooms: [ID]
     ): Building!
     deleteBuilding(id: ID!): String!
   }
