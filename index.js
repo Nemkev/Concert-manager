@@ -1,6 +1,7 @@
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import mongoose from "mongoose";
+import { getDescription, getPlaceSchema } from "./src/controllers/controllers";
 import { fileLoader, mergeTypes, mergeResolvers } from "merge-graphql-schemas";
 import path from "path";
 import { port, url } from "./src/config/configs";
@@ -36,6 +37,9 @@ const startServer = async () => {
   });
 
   app.get("/", (_, res) => res.redirect(`/graphql`));
+
+  app.get("/about", getDescription);
+  app.get("/place", getPlaceSchema);
 
   apollo.applyMiddleware({
     app,
