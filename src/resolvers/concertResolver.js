@@ -29,7 +29,6 @@ export default {
     updateConcert: async (_, args, { req }) => {
       try {
         isAuth(req);
-        console.log(11111);
         await joi.validate(args, concertValidate);
         const concert = await db.Concert.findByIdAndUpdate(args.id, args, {
           new: true
