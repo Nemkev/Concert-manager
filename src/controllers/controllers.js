@@ -9,8 +9,8 @@ export const getDescription = async (req, res) => {
   }
 };
 
-export const getPlaceSchema = (req, res) => {
-  return db.Room.find((err, article) => {
+export const getPlaceSchema = async (req, res) => {
+  return await db.Room.find((err, article) => {
     if (!err) {
       return res.send(article);
     } else {
