@@ -36,9 +36,9 @@ const startServer = async () => {
     next();
   });
 
-  app.get("/about", getDescription);
+  app.get("/about/:concertId", getDescription);
   app.get("/", (_, res) => res.redirect(`/graphql`));
-  app.get("/place", getPlaceSchema);
+  app.get("/place/:roomId", getPlaceSchema);
 
   apollo.applyMiddleware({
     app,

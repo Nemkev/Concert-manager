@@ -36,8 +36,8 @@ export default {
               .substr(-24);
             await new db.Ticket({
               userId: null,
-              concertId: concertId,
-              buildingId: buildingId,
+              concertId,
+              buildingId,
               placeId: id
             }).save();
             typesArray[x][y] = { price: vipPrice, id };
