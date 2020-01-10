@@ -35,6 +35,9 @@ const Room = new Schema({
       }
     ],
     default: DEFAULT_ROOM_SCHEMAS
+  },
+  name: {
+    type: Schema.Types.String
   }
 });
 

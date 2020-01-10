@@ -6,6 +6,7 @@ export default gql`
     email: String!
     accessToken: String
     refreshToken: String
+    role: String!
   }
   type Query {
     auth: User

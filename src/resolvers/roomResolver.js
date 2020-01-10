@@ -11,7 +11,10 @@ export default {
     }
   },
   Mutation: {
-    createRoom: async (_, { concertId, buildingId, locationScheme }) => {
+    createRoom: async (
+      _,
+      { concertId, buildingId, locationScheme, commonPrice, vipPrice, name }
+    ) => {
       let typesArray = locationScheme;
 
       for (let x = 0; x < typesArray.length; x++) {
@@ -26,7 +29,18 @@ export default {
               buildingId: buildingId,
               placeId: id
             }).save();
-            typesArray[x][y] = { price: 10, id };
+            typesArray[x][y] = { price: commonPrice, id };
+          } else if (typesArray[x][y] === 2) {
+            const id = uuidv4()
+              .replace(/-/g, "")
+              .substr(-24);
+            await new db.Ticket({
+              userId: null,
+              concertId: concertId,
+              buildingId: buildingId,
+              placeId: id
+            }).save();
+            typesArray[x][y] = { price: vipPrice, id };
           }
         }
       }
@@ -35,7 +49,8 @@ export default {
           {
             placeSchema: typesArray
           }
-        ]
+        ],
+        name
       }).save();
       return room;
     },

@@ -1,6 +1,7 @@
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import mongoose from "mongoose";
+import { getDescription, getPlaceSchema } from "./src/controllers/controllers";
 import { fileLoader, mergeTypes, mergeResolvers } from "merge-graphql-schemas";
 import path from "path";
 import { port, url } from "./src/config/configs";
@@ -24,7 +25,7 @@ const startServer = async () => {
   });
 
   const app = express();
-
+  app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
   app.use(cookieParser());
   app.use((req, _, next) => {
     const accessToken = req.cookies["access-token"];
@@ -35,7 +36,9 @@ const startServer = async () => {
     next();
   });
 
+  app.get("/about", getDescription);
   app.get("/", (_, res) => res.redirect(`/graphql`));
+  app.get("/place", getPlaceSchema);
 
   apollo.applyMiddleware({
     app,

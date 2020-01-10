@@ -12,11 +12,13 @@ export default gql`
     description: String
     price: Int!
     id: ID!
+    roomId: ID
   }
   type Mutation {
     createConcert(
       name: String!
       price: Int!
+      roomId: ID
       date: String!
       description: String
     ): Concerts!
