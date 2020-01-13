@@ -9,6 +9,8 @@ import cookieParser from "cookie-parser";
 import { ACCESS_TOKEN_SECRET } from "./src/config/configs";
 import { verify } from "jsonwebtoken";
 import cors from "cors";
+import http from "http";
+import SocketIO from "socket.io";
 
 mongoose.connect(url, { useFindAndModify: false });
 
@@ -39,6 +41,15 @@ const startServer = async () => {
   app.get("/about/:concertId", getDescription);
   app.get("/", (_, res) => res.redirect(`/graphql`));
   app.get("/place/:roomId", getPlaceSchema);
+  // io.on("connection", socket => {
+  //   socket.emit("news", { hello: "world" });
+  //   socket.on("my other event", data => {
+  //     console.log(data);
+  //   });
+  // });
+  // io.on("connection", socket => {
+  //   let nick = socket.handshake.query.nick;
+  // });
 
   apollo.applyMiddleware({
     app,
