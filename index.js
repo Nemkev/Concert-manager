@@ -1,7 +1,11 @@
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import mongoose from "mongoose";
-import { getDescription, getPlaceSchema } from "./src/controllers/controllers";
+import {
+  getDescription,
+  getPlaceSchema,
+  bookPlace
+} from "./src/controllers/controllers";
 import { fileLoader, mergeTypes, mergeResolvers } from "merge-graphql-schemas";
 import path from "path";
 import { port, url } from "./src/config/configs";
@@ -50,6 +54,7 @@ const startServer = async () => {
   app.get("/about/:concertId", getDescription);
   app.get("/", (_, res) => res.redirect(`/graphql`));
   app.get("/place/:roomId", getPlaceSchema);
+  app.put("/current/:placeId", bookPlace);
 
   apollo.applyMiddleware({
     app,

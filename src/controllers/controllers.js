@@ -19,3 +19,14 @@ export const getPlaceSchema = async (req, res) => {
     console.log(error);
   }
 };
+
+export const bookPlace = async (req, res) => {
+  try {
+    const id = req.params.concertId;
+    const newSchema = { placeSchema: req.body.matrix };
+    const newPlaceSchema = db.Room.findByIdAndUpdate(id, newSchema);
+    res.json({ newPlaceSchema });
+  } catch (error) {
+    console.log(error);
+  }
+};
