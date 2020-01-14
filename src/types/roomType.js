@@ -7,7 +7,7 @@ export default gql`
   }
 
   type Room {
-    locationScheme: [Place!]
+    placeSchema: [[Place]]
     name: String
     id: ID!
   }
@@ -20,7 +20,7 @@ export default gql`
 
   type Mutation {
     createRoom(
-      locationScheme: [[Int]]!
+      placeSchema: [[Int]]!
       name: String
       buildingId: ID!
       concertId: ID!
@@ -29,9 +29,12 @@ export default gql`
     ): Room!
     updateRoom(
       id: ID!
-      locationScheme: [[Int]]
+      name: String
+      placeSchema: [[Int]]
       buildingId: ID
       concertId: ID
+      commonPrice: Int
+      vipPrice: Int
     ): Room!
     deleteRoom(id: ID!): String!
   }

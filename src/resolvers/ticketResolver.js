@@ -30,7 +30,9 @@ export default {
       try {
         isAuth(req);
         await joi.validate(args, ticketValidate);
-        const ticket = await db.Ticket.findByIdAndUpdate(args.id, args);
+        const ticket = await db.Ticket.findByIdAndUpdate(args.id, args, {
+          new: true
+        });
         return ticket;
       } catch (error) {
         console.log(error);
