@@ -10,7 +10,7 @@ import { ACCESS_TOKEN_SECRET } from "./src/config/configs";
 import { verify } from "jsonwebtoken";
 import cors from "cors";
 import http from "http";
-import SocketIO from "socket.io";
+import socketIO from "socket.io";
 
 mongoose.connect(url, { useFindAndModify: false });
 
@@ -27,6 +27,15 @@ const startServer = async () => {
   });
 
   const app = express();
+
+  const server = http.Server(app);
+  const io = socketIO(server);
+
+  io.on("connection", client => {
+    console.log("New client connected");
+  });
+  console.log(`listening on port ${port}`);
+
   app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
   app.use(cookieParser());
   app.use((req, _, next) => {
@@ -41,15 +50,6 @@ const startServer = async () => {
   app.get("/about/:concertId", getDescription);
   app.get("/", (_, res) => res.redirect(`/graphql`));
   app.get("/place/:roomId", getPlaceSchema);
-  // io.on("connection", socket => {
-  //   socket.emit("news", { hello: "world" });
-  //   socket.on("my other event", data => {
-  //     console.log(data);
-  //   });
-  // });
-  // io.on("connection", socket => {
-  //   let nick = socket.handshake.query.nick;
-  // });
 
   apollo.applyMiddleware({
     app,
@@ -60,7 +60,7 @@ const startServer = async () => {
   });
 
   mongoose.connection.once("open", () => {
-    app.listen(port, () =>
+    server.listen(port, () =>
       console.log("server was started on http://localhost:8080/graphql")
     );
   });

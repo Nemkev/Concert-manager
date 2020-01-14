@@ -29,7 +29,7 @@ export default {
               buildingId: buildingId,
               placeId: id
             }).save();
-            typesArray[x][y] = { price: commonPrice, id };
+            typesArray[x][y] = { price: commonPrice, id, booked: false };
           } else if (typesArray[x][y] === 2) {
             const id = uuidv4()
               .replace(/-/g, "")
@@ -40,7 +40,7 @@ export default {
               buildingId,
               placeId: id
             }).save();
-            typesArray[x][y] = { price: vipPrice, id };
+            typesArray[x][y] = { price: vipPrice, id, booked: false };
           }
         }
       }
