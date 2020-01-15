@@ -22,11 +22,13 @@ export const getPlaceSchema = async (req, res) => {
 
 export const bookPlace = async (req, res) => {
   try {
-    const id = req.params.concertId;
-    const { placeSchema } = req.body;
-    const newSchema = { placeSchema: req.body.matrix };
-    const newPlaceSchema = db.Room.findByIdAndUpdate(id, newSchema);
-    res.json({ newPlaceSchema });
+    const id = req.params.placeId;
+    const placeSchema = req.body.placeSchema;
+
+    const newPlaceSchema = await db.Room.findByIdAndUpdate(id, {
+      placeSchema
+    });
+    res.json(newPlaceSchema);
   } catch (error) {
     console.log(error);
   }

@@ -44,12 +44,9 @@ export default {
           }
         }
       }
+      console.log(11111);
       const room = await new db.Room({
-        rooms: [
-          {
-            placeSchema: typesArray
-          }
-        ],
+        placeSchema: typesArray,
         name
       }).save();
       console.log(room);

@@ -14,6 +14,7 @@ import { ACCESS_TOKEN_SECRET } from "./src/config/configs";
 import { verify } from "jsonwebtoken";
 import cors from "cors";
 import http from "http";
+import bodyParser from "body-parser";
 import socketIO from "socket.io";
 
 mongoose.connect(url, { useFindAndModify: false });
@@ -42,6 +43,7 @@ const startServer = async () => {
 
   app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
   app.use(cookieParser());
+  app.use(bodyParser());
   app.use((req, _, next) => {
     const accessToken = req.cookies["access-token"];
     try {
