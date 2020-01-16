@@ -4,7 +4,8 @@ import mongoose from "mongoose";
 import {
   getDescription,
   getPlaceSchema,
-  bookPlace
+  bookPlace,
+  bindTicketToUser
 } from "./src/controllers/controllers";
 import { fileLoader, mergeTypes, mergeResolvers } from "merge-graphql-schemas";
 import path from "path";
@@ -57,6 +58,7 @@ const startServer = async () => {
   app.get("/", (_, res) => res.redirect(`/graphql`));
   app.get("/place/:roomId", getPlaceSchema);
   app.put("/current/:placeId", bookPlace);
+  app.put("/place/:userId/:placeId", bindTicketToUser);
 
   apollo.applyMiddleware({
     app,

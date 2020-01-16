@@ -33,3 +33,13 @@ export const bookPlace = async (req, res) => {
     console.log(error);
   }
 };
+
+export const bindTicketToUser = async (req, res) => {
+  try {
+    const { userId, placeId } = req.params;
+    const bookedTicket = await db.Ticket.findOneAndUpdate(placeId, { userId });
+    res.json(bookedTicket);
+  } catch (error) {
+    console.log(error);
+  }
+};
