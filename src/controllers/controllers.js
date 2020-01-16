@@ -1,4 +1,5 @@
 import db from "../models/db";
+// import socketIO from "socket.io";
 
 export const getDescription = async (req, res) => {
   try {
@@ -13,6 +14,7 @@ export const getDescription = async (req, res) => {
 export const getPlaceSchema = async (req, res) => {
   try {
     const id = req.params.roomId;
+    // socketIO.emit("broadcast", [{}, 0, {}]);
     const schema = await db.Room.findById(id);
     res.json({ schema });
   } catch (error) {

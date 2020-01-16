@@ -39,7 +39,15 @@ const startServer = async () => {
 
   io.on("connection", client => {
     console.log("New client connected");
+    client.on("subscribeToTimer", data => {
+      console.log("New client connected to subscribeInterval");
+      console.log(data);
+      // client.emit("blockTimer", data);
+      io.emit("broadcast", data);
+      // client.emit("blockTimer", data);
+    });
   });
+
   console.log(`listening on port ${port}`);
 
   app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
