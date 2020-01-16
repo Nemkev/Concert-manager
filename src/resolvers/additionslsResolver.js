@@ -30,7 +30,9 @@ export default {
       try {
         isAuth(req);
         await joi.validate(args, additionValidate);
-        const addition = await db.Additional.findByIdAndUpdate(args.id, args);
+        const addition = await db.Additional.findByIdAndUpdate(args.id, args, {
+          new: true
+        });
         return addition;
       } catch (error) {
         console.log(error);

@@ -19,3 +19,27 @@ export const getPlaceSchema = async (req, res) => {
     console.log(error);
   }
 };
+
+export const bookPlace = async (req, res) => {
+  try {
+    const id = req.params.placeId;
+    const placeSchema = req.body.placeSchema;
+
+    const newPlaceSchema = await db.Room.findByIdAndUpdate(id, {
+      placeSchema
+    });
+    res.json(newPlaceSchema);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const bindTicketToUser = async (req, res) => {
+  try {
+    const { userId, placeId } = req.params;
+    const bookedTicket = await db.Ticket.findOneAndUpdate(placeId, { userId });
+    res.json(bookedTicket);
+  } catch (error) {
+    console.log(error);
+  }
+};

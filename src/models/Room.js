@@ -28,14 +28,16 @@ const DEFAULT_ROOM_SCHEMAS = [
 ];
 
 const Room = new Schema({
-  rooms: {
-    type: [
+  placeSchema: [
+    [
       {
-        placeSchema: [[]]
+        price: { type: Schema.Types.Number },
+        id: { type: Schema.Types.String },
+        booked: { type: Schema.Types.Boolean }
       }
-    ],
-    default: DEFAULT_ROOM_SCHEMAS
-  },
+    ]
+  ],
+
   name: {
     type: Schema.Types.String
   }

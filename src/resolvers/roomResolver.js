@@ -13,9 +13,9 @@ export default {
   Mutation: {
     createRoom: async (
       _,
-      { concertId, buildingId, locationScheme, commonPrice, vipPrice, name }
+      { concertId, buildingId, placeSchema, commonPrice, vipPrice, name }
     ) => {
-      let typesArray = locationScheme;
+      let typesArray = placeSchema;
 
       for (let x = 0; x < typesArray.length; x++) {
         for (let y = 0; y < typesArray[x].length; y++) {
@@ -29,7 +29,7 @@ export default {
               buildingId: buildingId,
               placeId: id
             }).save();
-            typesArray[x][y] = { price: commonPrice, id };
+            typesArray[x][y] = { price: commonPrice, id, booked: false };
           } else if (typesArray[x][y] === 2) {
             const id = uuidv4()
               .replace(/-/g, "")
@@ -40,22 +40,21 @@ export default {
               buildingId,
               placeId: id
             }).save();
-            typesArray[x][y] = { price: vipPrice, id };
+            typesArray[x][y] = { price: vipPrice, id, booked: false };
           }
         }
       }
       const room = await new db.Room({
-        rooms: [
-          {
-            placeSchema: typesArray
-          }
-        ],
+        placeSchema: typesArray,
         name
       }).save();
+
       return room;
     },
     updateRoom: async (_, args) => {
-      const room = await db.Room.findByIdAndUpdate(args.id, args);
+      const room = await db.Room.findByIdAndUpdate(args.id, args, {
+        new: true
+      });
       return room;
     },
     deleteRoom: async (_, { id }) => {

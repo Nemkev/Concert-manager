@@ -1,7 +1,12 @@
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import mongoose from "mongoose";
-import { getDescription, getPlaceSchema } from "./src/controllers/controllers";
+import {
+  getDescription,
+  getPlaceSchema,
+  bookPlace,
+  bindTicketToUser
+} from "./src/controllers/controllers";
 import { fileLoader, mergeTypes, mergeResolvers } from "merge-graphql-schemas";
 import path from "path";
 import { port, url } from "./src/config/configs";
@@ -10,7 +15,8 @@ import { ACCESS_TOKEN_SECRET } from "./src/config/configs";
 import { verify } from "jsonwebtoken";
 import cors from "cors";
 import http from "http";
-import SocketIO from "socket.io";
+import bodyParser from "body-parser";
+import socketIO from "socket.io";
 
 mongoose.connect(url, { useFindAndModify: false });
 
@@ -27,8 +33,18 @@ const startServer = async () => {
   });
 
   const app = express();
+
+  const server = http.Server(app);
+  const io = socketIO(server);
+
+  io.on("connection", client => {
+    console.log("New client connected");
+  });
+  console.log(`listening on port ${port}`);
+
   app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
   app.use(cookieParser());
+  app.use(bodyParser());
   app.use((req, _, next) => {
     const accessToken = req.cookies["access-token"];
     try {
@@ -41,15 +57,8 @@ const startServer = async () => {
   app.get("/about/:concertId", getDescription);
   app.get("/", (_, res) => res.redirect(`/graphql`));
   app.get("/place/:roomId", getPlaceSchema);
-  // io.on("connection", socket => {
-  //   socket.emit("news", { hello: "world" });
-  //   socket.on("my other event", data => {
-  //     console.log(data);
-  //   });
-  // });
-  // io.on("connection", socket => {
-  //   let nick = socket.handshake.query.nick;
-  // });
+  app.put("/current/:placeId", bookPlace);
+  app.put("/place/:userId/:placeId", bindTicketToUser);
 
   apollo.applyMiddleware({
     app,
@@ -60,7 +69,7 @@ const startServer = async () => {
   });
 
   mongoose.connection.once("open", () => {
-    app.listen(port, () =>
+    server.listen(port, () =>
       console.log("server was started on http://localhost:8080/graphql")
     );
   });
