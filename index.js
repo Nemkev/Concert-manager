@@ -41,10 +41,7 @@ const startServer = async () => {
     console.log("New client connected");
     client.on("subscribeToTimer", data => {
       console.log("New client connected to subscribeInterval");
-      console.log(data);
-      // client.emit("blockTimer", data);
       io.emit("broadcast", data);
-      // client.emit("blockTimer", data);
     });
   });
 
