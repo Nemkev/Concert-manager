@@ -5,7 +5,8 @@ import {
   getDescription,
   getPlaceSchema,
   bookPlace,
-  bindTicketToUser
+  bindTicketToUser,
+  bookedPlace
 } from "./src/controllers/controllers";
 import { fileLoader, mergeTypes, mergeResolvers } from "merge-graphql-schemas";
 import path from "path";
@@ -40,20 +41,8 @@ const startServer = async () => {
   io.on("connection", socket => {
     console.log("New client connected");
 
-    socket.on("username", function(username) {
-      socket.username = username;
-      io.emit("is_online", "🔵 <i>" + socket.username + " join the chat..</i>");
-    });
-
-    socket.on("disconnect", function(username) {
-      io.emit("is_online", "🔴 <i>" + socket.username + " left the chat..</i>");
-    });
-
-    socket.on("chat_message", function(message) {
-      io.emit(
-        "chat_message",
-        "<strong>" + socket.username + "</strong>: " + message
-      );
+    socket.on("updateSchema", data => {
+      io.emit("updateSchema", data);
     });
   });
 
@@ -76,6 +65,7 @@ const startServer = async () => {
   app.get("/place/:roomId", getPlaceSchema);
   app.put("/current/:placeId", bookPlace);
   app.put("/place/:userId/:placeId", bindTicketToUser);
+  app.put("/booked/:userId", bookedPlace);
 
   apollo.applyMiddleware({
     app,
