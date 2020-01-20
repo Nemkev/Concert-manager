@@ -5,7 +5,8 @@ import {
   getDescription,
   getPlaceSchema,
   bookPlace,
-  bindTicketToUser
+  bindTicketToUser,
+  bookedPlace
 } from "./src/controllers/controllers";
 import { fileLoader, mergeTypes, mergeResolvers } from "merge-graphql-schemas";
 import path from "path";
@@ -37,9 +38,14 @@ const startServer = async () => {
   const server = http.Server(app);
   const io = socketIO(server);
 
-  io.on("connection", client => {
+  io.on("connection", socket => {
     console.log("New client connected");
+
+    socket.on("updateSchema", data => {
+      io.emit("updateSchema", data);
+    });
   });
+
   console.log(`listening on port ${port}`);
 
   app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
@@ -59,6 +65,7 @@ const startServer = async () => {
   app.get("/place/:roomId", getPlaceSchema);
   app.put("/current/:placeId", bookPlace);
   app.put("/place/:userId/:placeId", bindTicketToUser);
+  app.put("/booked/:userId", bookedPlace);
 
   apollo.applyMiddleware({
     app,

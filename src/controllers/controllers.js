@@ -34,10 +34,27 @@ export const bookPlace = async (req, res) => {
   }
 };
 
+export const bookedPlace = async (req, res) => {
+  try {
+    const id = req.body.bookedPlaces;
+    const idUser = req.params.userId;
+    for (let i = 0; i < id.length; i++) {
+      const newTicket = await db.Ticket.find({ placeId: id[i] }).update({
+        userId: idUser
+      });
+      if (i === id.length - 1) {
+        res.json({ newTicket });
+      }
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const bindTicketToUser = async (req, res) => {
   try {
     const { userId, placeId } = req.params;
-    const bookedTicket = await db.Ticket.findOneAndUpdate(placeId, { userId });
+    const bookedTicket = await db.Ticket.find({ placeId }).update({ userId });
     res.json(bookedTicket);
   } catch (error) {
     console.log(error);
