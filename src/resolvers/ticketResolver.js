@@ -5,13 +5,26 @@ import { isAuth } from "../helpers/isAuth";
 
 export default {
   Query: {
-    getTicket: async (_, __, { req }) => {
+    getTickets: async (_, __, { req }) => {
       isAuth(req);
       return await db.Ticket.find();
     },
-    getTickets: async (_, { id }, { req }) => {
+    getTicket: async (_, { id }, { req }) => {
       isAuth(req);
       return await db.Ticket.findById(id);
+    },
+    getUserTickets: async (_, { userId, limit, skip }, { req }) => {
+      isAuth(req);
+      const userTickets = await db.Ticket.find({ userId }, null, {
+        limit,
+        skip
+      })
+        .populate({
+          path: "concertId",
+          model: db.Concert
+        })
+        .lean();
+      return userTickets;
     }
   },
   Mutation: {
