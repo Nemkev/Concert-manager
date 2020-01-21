@@ -4,6 +4,12 @@ export default gql`
   type Query {
     getTickets: [Ticket!]!
     getTicket(id: ID!): Ticket
+    getUserTickets(userId: String, limit: Int, skip: Int): [UserTicket]
+  }
+
+  type UserTicket {
+    concertId: Concerts
+    placeId: String
   }
 
   type Ticket {
