@@ -60,3 +60,20 @@ export const bindTicketToUser = async (req, res) => {
     console.log(error);
   }
 };
+
+export const bindAdditionalToTicket = async (req, res) => {
+  try {
+    const id = req.body.bookedPlaces;
+    const additionalId = req.body.additionalArr;
+    for (let i = 0; i < id.length; i++) {
+      const newTicket = await db.Ticket.find({ placeId: id[i] }).update({
+        additionalIds: additionalId
+      });
+      if (i === id.length - 1) {
+        res.json({ newTicket });
+      }
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};

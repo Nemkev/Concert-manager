@@ -19,7 +19,8 @@ const Concert = new Schema({
     required: true
   },
   roomId: {
-    type: Schema.Types.ObjectId
+    type: Schema.Types.ObjectId,
+    default: null
   }
 });
 

@@ -6,7 +6,8 @@ import {
   getPlaceSchema,
   bookPlace,
   bindTicketToUser,
-  bookedPlace
+  bookedPlace,
+  bindAdditionalToTicket
 } from "./src/controllers/controllers";
 import { fileLoader, mergeTypes, mergeResolvers } from "merge-graphql-schemas";
 import path from "path";
@@ -66,6 +67,7 @@ const startServer = async () => {
   app.put("/current/:placeId", bookPlace);
   app.put("/place/:userId/:placeId", bindTicketToUser);
   app.put("/booked/:userId", bookedPlace);
+  app.put("/ticket", bindAdditionalToTicket);
 
   apollo.applyMiddleware({
     app,
