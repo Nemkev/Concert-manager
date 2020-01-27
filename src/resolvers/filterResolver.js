@@ -3,11 +3,11 @@ import db from "../models/db";
 export default {
   Query: {
     getFilter: async (_, { name, city, date, limit, skip }) => {
-      const data = await db.Building.find({}, null, { limit, skip })
+      const data = await db.Building.find({}, null)
         .populate({ path: "concerts", model: db.Concert })
         .lean();
 
-      return data
+      const bar = data
         .filter(item => (city ? item.city.includes(city) : item))
         .map(item => {
           const concerts = item.concerts
@@ -26,6 +26,9 @@ export default {
           return Object.assign({}, item, { concerts, id: item._id });
         })
         .filter(item => item.concerts.length > 0);
+      console.log(bar);
+
+      return bar;
     }
   }
 };
