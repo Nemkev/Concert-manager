@@ -29,7 +29,7 @@ export default gql`
       price: Int
       date: String
       roomId: ID
-    ): Concerts!
+    ): Concerts
     deleteConcert(id: ID!): String!
   }
 `;

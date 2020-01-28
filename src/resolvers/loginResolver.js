@@ -35,6 +35,18 @@ export default {
 
       return true;
     },
+    unLogin: async (_, __, { res }) => {
+      const refreshToken = "";
+      const accessToken = "";
+
+      res.cookie("refresh-token", refreshToken, { httpOnly: true });
+      res.cookie("access-token", accessToken, { httpOnly: true });
+
+      return {
+        accessToken: accessToken,
+        refreshToken: refreshToken
+      };
+    },
     login: async (_, { email, hashPassword }, { res }) => {
       const user = await db.User.findOne({ email }).lean();
 
@@ -57,7 +69,7 @@ export default {
         }
       );
       const accessToken = sign({ userId: user._id }, ACCESS_TOKEN_SECRET, {
-        expiresIn: "15min"
+        expiresIn: "30min"
       });
 
       res.cookie("refresh-token", refreshToken, { httpOnly: true });

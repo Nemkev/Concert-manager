@@ -19,5 +19,6 @@ export default gql`
       lastName: String!
     ): Boolean!
     login(email: String!, hashPassword: String!): User
+    unLogin: User
   }
 `;
