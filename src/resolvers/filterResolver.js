@@ -7,7 +7,7 @@ export default {
         .populate({ path: "concerts", model: db.Concert })
         .lean();
 
-      const bar = data
+      const filteredData = data
         .filter(item => (city ? item.city.includes(city) : item))
         .map(item => {
           const concerts = item.concerts
@@ -26,9 +26,7 @@ export default {
           return Object.assign({}, item, { concerts, id: item._id });
         })
         .filter(item => item.concerts.length > 0);
-      console.log(bar);
-
-      return bar;
+      return filteredData;
     }
   }
 };
