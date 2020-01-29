@@ -31,7 +31,8 @@ const startServer = async () => {
   const apollo = new ApolloServer({
     typeDefs,
     resolvers,
-    context: ({ req, res }) => ({ req, res })
+    context: ({ req, res }) => ({ req, res }),
+    introspection: true
   });
 
   const app = express();
