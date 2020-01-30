@@ -17,10 +17,12 @@ import { ACCESS_TOKEN_SECRET } from "./src/config/configs";
 import { verify } from "jsonwebtoken";
 import cors from "cors";
 import http from "http";
+import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import socketIO from "socket.io";
 
-mongoose.connect(url, { useFindAndModify: false });
+dotenv.config();
+mongoose.connect(process.env.URL, { useFindAndModify: false });
 
 const typeDefs = mergeTypes(fileLoader(path.join(__dirname, "./src/types/")));
 const resolvers = mergeResolvers(
@@ -48,15 +50,13 @@ const startServer = async () => {
     });
   });
 
-  console.log(`listening on port ${port}`);
-
   app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
   app.use(cookieParser());
   app.use(bodyParser());
   app.use((req, _, next) => {
     const accessToken = req.cookies["access-token"];
     try {
-      const data = verify(accessToken, ACCESS_TOKEN_SECRET);
+      const data = verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
       req.userId = data.userId;
     } catch (error) {}
     next();
@@ -74,7 +74,7 @@ const startServer = async () => {
     app,
     cors: {
       credentials: true,
-      origin: "http://localhost:3000"
+      origin: process.env.CLIENT_URL
     }
   });
 
