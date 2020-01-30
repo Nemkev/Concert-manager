@@ -3,7 +3,10 @@ import bcrypt from "bcryptjs";
 import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from "../config/configs";
 import { sign } from "jsonwebtoken";
 import userValidate from "../services/userValidate";
+import dotenv from "dotenv";
 import joi from "joi";
+
+dotenv.config();
 
 export default {
   Query: {
@@ -63,14 +66,18 @@ export default {
 
       const refreshToken = sign(
         { userId: user._id, count: user.count },
-        REFRESH_TOKEN_SECRET,
+        process.env.REFRESH_TOKEN_SECRET,
         {
           expiresIn: "7d"
         }
       );
-      const accessToken = sign({ userId: user._id }, ACCESS_TOKEN_SECRET, {
-        expiresIn: "30min"
-      });
+      const accessToken = sign(
+        { userId: user._id },
+        process.env.ACCESS_TOKEN_SECRET,
+        {
+          expiresIn: "30min"
+        }
+      );
 
       res.cookie("refresh-token", refreshToken, { httpOnly: true });
       res.cookie("access-token", accessToken, { httpOnly: true });
